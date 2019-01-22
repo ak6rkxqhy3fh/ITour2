@@ -1,0 +1,36 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorCompanies.DetailsModel
+
+@{
+    ViewData["Title"] = "Юр. лицо туроператора";
+}
+
+<h3>Юр. лицо туроператора</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TouroperatorCompany.TouroperatorBrands)
+        </dt>
+        <dd>
+            @ViewBag.TouroperatorBrandCompanyName
+        </dd>
+    </dl>
+    @if (Model.TouroperatorCompany.DictionaryData != null)
+    {        
+        <table class="table table-condensed table-condensed table-striped">
+            @foreach (var item in Model.TouroperatorCompany.DictionaryData)
+            {
+            <tr>
+                <td>@item.Key?.ToString()</td>
+                <td>@item.Value?.ToString()</td>
+            </tr>
+            }
+        </table>
+    }
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TouroperatorCompany.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>

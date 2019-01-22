@@ -1,0 +1,56 @@
+﻿@page
+@model ITour.Pages.Admin.Options.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AppOptions</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AppOptions.Id" />
+            <div class="form-group">
+                <label asp-for="AppOptions.TenantId" class="control-label"></label>
+                <input asp-for="AppOptions.TenantId" class="form-control" />
+                <span asp-validation-for="AppOptions.TenantId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AppOptions.IsUsePayments" /> @Html.DisplayNameFor(model => model.AppOptions.IsUsePayments)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AppOptions.IsUseCommissionReport" /> @Html.DisplayNameFor(model => model.AppOptions.IsUseCommissionReport)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AppOptions.IsUseProfits" /> @Html.DisplayNameFor(model => model.AppOptions.IsUseProfits)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

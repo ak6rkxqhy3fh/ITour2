@@ -1,0 +1,117 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.DetailsModel
+
+@{
+    ViewData["Title"] = "Физ. лицо";
+}
+
+<h3>Физ. лицо</h3>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.ApplicationUser)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.ApplicationUser.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.Firstname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Middlename)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.Middlename)
+        </dd>
+        <dt>
+            Телефон
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.ApplicationUser.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.ApplicationUser.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.ApplicationUser.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.BirthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.BirthDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.SurnameGenitive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.SurnameGenitive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.FirstnameGenitive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.FirstnameGenitive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.MiddlenameGenitive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.MiddlenameGenitive)
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Person.IdDocument.DocumentType.Name)
+        </dt>
+        <dd>
+            <small>Серия:</small> @Html.DisplayFor(model => model.Person.IdDocument.Series) | 
+            <small>Номер:</small> @Html.DisplayFor(model => model.Person.IdDocument.Number) |
+            <small>Выдан:</small> @Html.DisplayFor(model => model.Person.IdDocument.IssuedBy) |
+            <small>Дата выдачи:</small> @Html.DisplayFor(model => model.Person.IdDocument.IssuedDate) |
+            <small>Дата действия:</small> @Html.DisplayFor(model => model.Person.IdDocument.ExpirationDate) |
+</dd>
+        <dt>
+            Загранпаспорт
+        </dt>
+        <dd>
+            <small>Серия:</small> @Html.DisplayFor(model => model.Person.Passport.Series) |
+            <small>Номер:</small> @Html.DisplayFor(model => model.Person.Passport.Number) |
+            <small>Выдан:</small> @Html.DisplayFor(model => model.Person.Passport.IssuedBy) |
+            <small>Дата выдачи:</small> @Html.DisplayFor(model => model.Person.Passport.IssuedDate) |
+            <small>Дата действия:</small>@Html.DisplayFor(model => model.Person.Passport.ExpirationDate) |
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.IsEmployee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Person.IsEmployee)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Person.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>

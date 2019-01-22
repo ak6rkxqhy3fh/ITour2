@@ -1,0 +1,89 @@
+﻿@page
+@model ITour.Pages.Services.AdditionalServices.EditInOrderModel
+@{
+    ViewData["Title"] = "Изменить услугу";
+}
+<h3>Изменить Дополнительную услугу к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AdditionalService.Id" />
+            <input type="hidden" asp-for="AdditionalService.TenantId" />
+            <input type="hidden" asp-for="AdditionalService.OrderId" />
+            <input type="hidden" asp-for="AdditionalService.PacketTourServiceId" />
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label asp-for="AdditionalService.Name" class="control-label"></label>
+                    <input asp-for="AdditionalService.Name" class="form-control" />
+                    <span asp-validation-for="AdditionalService.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="AdditionalService.Description" class="control-label"></label>
+                    <input asp-for="AdditionalService.Description" class="form-control" />
+                    <span asp-validation-for="AdditionalService.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="AdditionalService.DateBegin" class="control-label"></label>
+                    <input asp-for="AdditionalService.DateBegin" class="form-control" />
+                    <span asp-validation-for="AdditionalService.DateBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="AdditionalService.TimeBegin" class="control-label"></label>
+                    <input asp-for="AdditionalService.TimeBegin" class="form-control" />
+                    <span asp-validation-for="AdditionalService.TimeBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="AdditionalService.DateEnd" class="control-label"></label>
+                    <input asp-for="AdditionalService.DateEnd" class="form-control" />
+                    <span asp-validation-for="AdditionalService.DateEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="AdditionalService.TimeEnd" class="control-label"></label>
+                    <input asp-for="AdditionalService.TimeEnd" class="form-control" />
+                    <span asp-validation-for="AdditionalService.TimeEnd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="AdditionalService.Comment" class="control-label"></label>
+                    <input asp-for="AdditionalService.Comment" class="form-control" />
+                    <span asp-validation-for="AdditionalService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="AdditionalService.Cost" class="control-label"></label>
+                    <input asp-for="AdditionalService.Cost" class="form-control" />
+                    <span asp-validation-for="AdditionalService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="AdditionalService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="AdditionalService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="AdditionalService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="AdditionalService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="AdditionalService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Services" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

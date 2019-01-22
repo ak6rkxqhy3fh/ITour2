@@ -1,0 +1,97 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.InsuranceCompanies.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InsuranceCompany</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Person)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Person.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.ActionCause)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.ActionCause)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.INN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.INN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.OGRN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.OGRN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.AddressLegal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.AddressLegal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.AddressPostal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.AddressPostal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Bank)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Bank)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Website)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Website)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCompany.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCompany.Comment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.InsuranceCompany.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

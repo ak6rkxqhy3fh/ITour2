@@ -1,0 +1,47 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorCompanies.RegistryModel
+@{
+    ViewData["Title"] = "Реестр Юр. лиц туроператоров";
+}
+
+<h2>Реестр Юр. лиц туроператоров</h2>
+<div class="row">
+    <form method="post">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <input type="hidden" asp-for="RegistryUri.Id" />
+                <label asp-for="RegistryUri.UriString" class="control-label"></label>
+                <input asp-for="RegistryUri.UriString" class="form-control" />
+                <span asp-validation-for="RegistryUri.UriString" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <br /><input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button asp-page-handler="Load" class="btn btn-default" data-toggle="modal" data-target="#loadingModal">Загрузить</button>
+            <button asp-page-handler="Update" class="btn btn-default" data-toggle="modal" data-target="#loadingModal">Обновить</button>
+            <button asp-page-handler="Clear" class="btn btn-default" data-toggle="modal" data-target="#loadingModal">Очистить</button>
+        </div>
+    </form>
+    <div class="row"><div>Всего в базе: @Model.RegistryStat?.Count</div></div>
+    <div class="row"><div>Из них валидных: @Model.RegistryStat?.CountValid</div></div>
+    <div class="row"><div>Из них загружено с Ростуризма: @Model.RegistryStat?.CountOpenData</div></div>
+
+    @*<button type="button" asp-page-handler="Load" class="btn btn-primary" data-toggle="modal" data-target="#loadingModal">
+            Загрузить
+        </button>*@
+
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Загрузка...</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row"><div class="col-md-offset-4 col-md-4"><img src="~/images/loading.gif" /></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

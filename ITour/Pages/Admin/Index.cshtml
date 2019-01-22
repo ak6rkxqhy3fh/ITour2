@@ -1,0 +1,66 @@
+﻿@page
+@model ITour.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h3>Admin</h3>
+<table style="width: 60%">
+    <tr>
+        <td valign="top">
+            <a asp-page="/AppUsers/People/Index">Физ. лица</a><br>
+            <a asp-page="/AppUsers/People/Documents/DocumentTypes/Index">Типы документов</a><br>
+            <a asp-page="/AppUsers/Managers/Index">Менеджеры</a><br>
+            <a asp-page="/AppUsers/Managers/PowerAttorneys/Index">Доверенности</a><br>
+            <a asp-page="/AppUsers/Roles/Index">Роли</a><br>
+
+            <h4>Агентство</h4>
+            <a asp-page="/AppCompanies/Companies/AgencyCompanies/Index">Юр лица агентства</a><br>
+            <a asp-page="/AppCompanies/Companies/AgencyCompanies/Licenses/Index">Лицензии</a><br>
+            <a asp-page="/AppCompanies/Companies/AgencyOffices/Index">Офисы агентства</a><br>
+            <a asp-page="/AppCompanies/Companies/PartnerCompanies/Index">Партнеры (ЕРЦ)</a><br>
+
+            <h4>Заказчики</h4>
+            <a asp-page="/AppUsers/Customers/Index">Заказчики</a><br>
+            <a asp-page="/AppCompanies/Companies/CustomerCompanies/Index">Юр лица Заказчика</a><br>
+
+            <h4>Заказы</h4>
+            <a asp-page="/Orders/Basic/Index">Заказы()</a><br>
+            <a asp-page="/Admin/Orders/OrderStatuses/Index">Статусы заказов</a><br>
+
+            <h4>Туроператоры</h4>
+            <a asp-page="/AppCompanies/TouroperatorBrands/Index">Туроператоры</a><br>
+            <a asp-page="/AppCompanies/TouroperatorCompanies/Index">Юр лица туроператоров</a><br>
+            <a asp-page="/AppCompanies/TouroperatorCompanies/Registry">Реестр туроператоров</a><br>
+        </td>
+        <td valign="top">
+
+            <h4>Платежи</h4>
+            <a asp-page="/Payments/Index">Платежи</a><br>
+            <a asp-page="/Payments/IncomingPayments/Index">Входящие платежи</a><br>
+            <a asp-page="/Payments/OutgoingPayments/Index">Исходящие платежи</a><br>
+            <a asp-page="/Payments/PaymentTypes/Index">Типы платежей</a><br>
+            <a asp-page="/Payments/PaymentForms/Index">Формы платежей</a><br>
+
+            <h4>Услуги</h4>
+            <a asp-page="/Admin/Services/ServiceTypes/Index">Типы услуг</a><br>
+            <a asp-page="/Services/CurrencyTypes/Index">Валюты</a><br>
+            <a asp-page="/Services/AccomodationServices/Countries/Index">Страны</a><br>
+            <a asp-page="/Services/AccomodationServices/Resorts/Index">Курорты</a><br>
+            <a asp-page="/Services/AccomodationServices/Hotels/Index">Отели</a><br>
+            <a asp-page="/Services/AccomodationServices/RoomTypes/Index">Типы номеров</a><br>
+            <a asp-page="/Services/AccomodationServices/FoodTypes/Index">Типы питания</a><br>
+            <a asp-page="/Services/TransportServices/TransportTypes/Index">Виды транспорта</a><br>
+            <a asp-page="/Services/TransferServices/TransferTypes/Index">Виды Трансфера</a><br>
+            <a asp-page="/AppCompanies/Companies/InsuranceCompanies/Index">Страховые компании</a><br>
+            <a asp-page="/Services/InsuranceServices/InsuranceTypes/Index">Виды страховки</a><br>
+            <a asp-page="/Services/VisaServices/VisaTypes/Index">Виды виз. поддержки</a><br>
+
+            <h4>Инструменты</h4>
+            <a asp-page="/Admin/Options/Index">Опции</a><br>
+        </td>        
+    </tr>
+</table>
+
+
+

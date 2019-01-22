@@ -1,0 +1,26 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.FoodTypes.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить Тип питания";
+}
+
+<h3>Удалить Тип питания</h3>
+<h4>Вы уверены, что хотите удалить?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodType.Name)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="FoodType.Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="./Index">Назад к списку</a>
+    </form>
+</div>

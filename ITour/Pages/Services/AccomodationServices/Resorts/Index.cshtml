@@ -1,0 +1,120 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.Resorts.IndexModel
+
+@{
+    ViewData["Title"] = "Курорты";
+}
+
+<h3>
+    Курорты
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <span class="glyphicon glyphicon-filter"></span> Фильтр
+        </a>
+    </small>
+</h3>
+
+@{
+    string inStr = Model.ResortFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-2">
+                        <label>Страна</label>
+                        <select asp-for="ResortFilter.CountryId" class="form-control col-md-3" asp-items="@ViewBag.FilterCountryId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-3 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"ResortFilter.CountryId", Model.ResortFilter?.CountryId.ToString() },
+{"ResortPaginate.PageSize", Model.ResortPaginate?.PageSize.ToString() }
+};
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Resort[0].Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resort[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Resort)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Детали</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>    
+
+@{
+    string prevDisabled = !Model.ResortPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.ResortPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "ResortPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "ResortPaginate.PageNumber", (Model.ResortPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "ResortPaginate.PageNumber", (Model.ResortPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "ResortPaginate.PageNumber", (Model.ResortPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.ResortPaginate.PageNumber из @Model.ResortPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.ResortPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.ResortPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>

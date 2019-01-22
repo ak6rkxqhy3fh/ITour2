@@ -1,0 +1,25 @@
+﻿@page
+@model ITour.Pages.AppUsers.Roles.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Роли</h3>
+
+<table class="table">
+    @foreach (var role in Model.Roles)
+    {
+        <tr>
+            <td>@role.Name</td>
+            <td>
+                <form asp-page="Delete" asp-route-id="@role.Id" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-page="Create">Добавить роль</a> 
+

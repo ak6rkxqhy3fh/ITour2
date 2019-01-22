@@ -1,0 +1,77 @@
+﻿@page
+@model ITour.Pages.Payments.OutgoingPayments.DetailsModel
+
+@{
+    ViewData["Title"] = "Исходящий платеж";
+}
+
+<h3>Исходящий платеж</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.InvoiceNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.InvoiceNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.InvoiceDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.InvoiceDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PartnerCompany)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PartnerCompany.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.Order.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentForm.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.Comment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./EditOutgoingPayment" asp-route-outgoingPaymentId="@Model.OutgoingPayment.Id">Изменить</a> |
+    <a asp-page="../Index">Назад к платежам</a>
+</div>

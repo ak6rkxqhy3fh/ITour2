@@ -1,0 +1,103 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.AgencyCompanies.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AgencyCompany</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Person)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Person.SurnameInitials)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.PersonPost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.PersonPost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.ActionCause)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.ActionCause)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.INN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.INN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.OGRN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.OGRN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.AddressLegal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.AddressLegal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.AddressPostal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.AddressPostal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Bank)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Bank)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Website)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Website)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCompany.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCompany.Comment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AgencyCompany.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

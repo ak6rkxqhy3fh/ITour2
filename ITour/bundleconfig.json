@@ -1,0 +1,26 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/jquery-validation-fix/jquery.validate.fix.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-validation-fix/jquery.validate.fix.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/cascading-resort-hotel.min.js",
+    "inputFiles": [
+      "wwwroot/js/cascading-resort-hotel.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/create-hotel.min.js",
+    "inputFiles": [
+      "wwwroot/js/create-hotel.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/maskedinput-phone.min.js",
+    "inputFiles": [
+      "wwwroot/js/maskedinput-phone.js"
+    ]
+  }
+]

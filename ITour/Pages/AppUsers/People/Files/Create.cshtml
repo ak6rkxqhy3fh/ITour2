@@ -1,0 +1,39 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.Files.CreateModel
+
+@{
+    ViewData["Title"] = "Загрузить файл";
+}
+
+<h3>Загрузить файл</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form  method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" value="@ViewBag.PersonId" />             
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label">Выберите файл</label>
+                    <input asp-for="UploadedFile" class="form-control" style="height:auto" type="file" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="PersonFile.Description" class="control-label"></label>
+                    <input asp-for="PersonFile.Description" class="form-control" />
+                    <span asp-validation-for="PersonFile.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Загрузить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index" asp-route-personId="@ViewBag.PersonId">Назадк к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,51 @@
+﻿@page
+@model ITour.Pages.Prints.Templates.EditModel
+
+@{
+    ViewData["Title"] = "Изменить шаблон";
+}
+
+<h3>Изменить шаблон</h3>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PrintTemplate.Id" />
+            <input type="hidden" asp-for="PrintTemplate.TenantId" />
+            <input type="hidden" asp-for="PrintTemplate.IsActive" />
+            <input type="hidden" asp-for="PrintTemplate.Sequence" />
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="PrintTemplate.Title" class="control-label"></label>
+                    <input asp-for="PrintTemplate.Title" class="form-control" />
+                    <span asp-validation-for="PrintTemplate.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-8">
+                    <label asp-for="PrintTemplate.Description" class="control-label"></label>
+                    <input asp-for="PrintTemplate.Description" class="form-control" />
+                    <span asp-validation-for="PrintTemplate.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrintTemplate.ContentTemplate" class="control-label"></label>
+                <textarea asp-for="PrintTemplate.ContentTemplate" class="form-control"></textarea>
+                <span asp-validation-for="PrintTemplate.ContentTemplate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить и закрыть" class="btn btn-default" asp-route-isClose="true" />
+                <input type="submit" value="Сохранить и остаться" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/js/tinymce-init.js"></script>
+}

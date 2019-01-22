@@ -1,0 +1,85 @@
+﻿@page
+@model ITour.Pages.Payments.OutgoingPayments.EditInOrderModel
+
+@{
+    ViewData["Title"] = "Изменить исходящий платеж";
+}
+
+<h3>Изменить исходящий платеж</h3>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" id="outgoingPaymentForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OutgoingPayment.Id" />
+            <input type="hidden" asp-for="OutgoingPayment.TenantId" />
+            <input type="hidden" asp-for="OutgoingPayment.OrderId" />
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentDate" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.PaymentDate" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.PaymentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentFormId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PaymentFormId" class="form-control" asp-items="ViewBag.PaymentFormId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentTypeId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PaymentTypeId" class="form-control" asp-items="ViewBag.PaymentTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentOrder" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.PaymentOrder" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.PaymentOrder" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.InvoiceNumber" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.InvoiceNumber" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.InvoiceNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.InvoiceDate" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.InvoiceDate" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.InvoiceDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OutgoingPayment.PartnerCompanyId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PartnerCompanyId" class="form-control" asp-items="ViewBag.PartnerCompanyId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentAmount" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.PaymentAmount" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.PaymentAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-8">
+                    <label asp-for="OutgoingPayment.Comment" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.Comment" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Payments" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

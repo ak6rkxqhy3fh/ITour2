@@ -1,0 +1,78 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorBrands.IndexModel
+
+@{
+    ViewData["Title"] = "Бренды туроператоров";
+}
+
+<h3>
+    Бренды туроператоров
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+        @*<a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                <i class="glyphicon glyphicon-filter"></i> Фильтр
+            </a>*@
+    </small>
+</h3>
+
+@*<p>
+        <a asp-page="Create">Создать</a>
+    </p>*@
+
+<div class="panel-group" id="accordion">
+    @foreach (var item in Model.TouroperatorBrand)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</a>
+                        </h4>
+                    </div>
+                    <div class="col-md-1">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@Html.DisplayFor(modelItem => item.Id)">
+                            <span class="label label-default">@Html.DisplayFor(modelItem => item.TouroperatorCompanies.Count)</span>
+                        </a>
+                    </div>
+                    <div class="col-md-7 text-justify">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a asp-page="./Attach" asp-route-touroperatorBrandId="@item.Id" class="btn btn-default" title="">Прикрепить юр. лица</a>
+                            </div>
+                            <div class="col-md-5">
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-default" title="Изменить"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-default" title="Детали"><span class="glyphicon glyphicon-info-sign"></span></a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-default" title="Удалить"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="@Html.DisplayFor(modelItem => item.Id)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-condensed table-hover">
+                        @foreach (var tc in item.TouroperatorCompanies)
+                        {
+                            <tr>
+                                @{
+                                    string expiredTd = tc.TouroperatorCompany.IsFinGaranteeDateNewPeriodExpired ? "warning" : "";
+                                    string expiredDiv = tc.TouroperatorCompany.IsFinGaranteeDateNewPeriodExpired ? "text-danger" : "";
+                                }
+                                <td>@Html.DisplayFor(modelTc => tc.TouroperatorCompany.Name)</td>
+                                <td><a asp-page="./Index" asp-page-handler="Detach" asp-route-touroperatorCompanyId="@tc.Id" class="btn btn-default">Открепить</a></td>
+                                <td>@Html.DisplayFor(modelTc => tc.TouroperatorCompany.RegistryNumber)</td>
+                                <td>@Html.DisplayFor(modelTc => tc.TouroperatorCompany.Website)</td>
+                                <td>@Html.DisplayFor(modelTc => tc.TouroperatorCompany.FinGaranteeTotalAmount)</td>
+                                <td>@Html.DisplayFor(modelTc => tc.TouroperatorCompany.FinGaranteeAmountNewPeriod)</td>
+                                <td class="@expiredTd">
+                                    <div class="text-center @expiredDiv">@Html.DisplayFor(modelTc => tc.TouroperatorCompany.FinGaranteeExpirationDateNewPeriodString)</div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

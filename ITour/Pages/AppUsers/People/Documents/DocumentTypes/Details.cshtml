@@ -1,0 +1,43 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.Documents.DocumentTypes.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DocumentType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentType.IsSystem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentType.IsSystem)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentType.TenantId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentType.TenantId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentType.IsDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentType.IsDeleted)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.DocumentType.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

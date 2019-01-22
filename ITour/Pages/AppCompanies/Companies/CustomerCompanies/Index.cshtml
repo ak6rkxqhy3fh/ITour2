@@ -1,0 +1,136 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.CustomerCompanies.IndexModel
+
+@{
+    ViewData["Title"] = "Юр. лица Заказчика";
+}
+
+<h3>
+    Юр. лица Заказчика
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <i class="glyphicon glyphicon-filter"></i> Фильтр
+        </a>
+    </small>
+</h3>
+@{
+    string inStr = Model.CustomerCompanyFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-2">
+                        <label>Название</label>
+                        <input asp-for="CustomerCompanyFilter.Name" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"CustomerCompanyFilter.Name", Model.CustomerCompanyFilter?.Name?.ToString() },
+{"CustomerCompanyPaginate.PageSize", Model.CustomerCompanyPaginate?.PageSize.ToString() }
+};
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCompany[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCompany[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCompany[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCompany[0].Website)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCompany[0].Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CustomerCompany)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    <a class="btn btn-default" asp-page="./Edit" asp-route-id="@item.Id" title="Изменить"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a class="btn btn-default" asp-page="./Details" asp-route-id="@item.Id" title="Детали"><span class="glyphicon glyphicon-info-sign"></span></a>
+                    <a class="btn btn-default" asp-page="./Delete" asp-route-id="@item.Id" title="Удалить"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.CustomerCompanyPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.CustomerCompanyPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CustomerCompanyPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CustomerCompanyPaginate.PageNumber", (Model.CustomerCompanyPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CustomerCompanyPaginate.PageNumber", (Model.CustomerCompanyPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CustomerCompanyPaginate.PageNumber", (Model.CustomerCompanyPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.CustomerCompanyPaginate.PageNumber из @Model.CustomerCompanyPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.CustomerCompanyPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.CustomerCompanyPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>
+

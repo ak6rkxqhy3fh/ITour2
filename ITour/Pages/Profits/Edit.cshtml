@@ -1,0 +1,54 @@
+﻿@page
+@model ITour.Pages.Profits.EditModel
+
+@{
+    ViewData["Title"] = "Изменить вознаграждение";
+}
+
+<h3>Изменить вознаграждение</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Profit.Id" />
+            <input type="hidden" asp-for="Profit.OrderId" />
+            <input type="hidden" asp-for="Profit.TenantId" />
+            <div class="row" style="display: flex; align-items: center;">
+                <div class="form-group col-md-3">
+                    <label asp-for="Profit.ManualBasicProfit" class="control-label">Базовое вознаграждение</label>
+                    <input asp-for="Profit.ManualBasicProfit" class="form-control" />
+                    <span asp-validation-for="Profit.ManualBasicProfit" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Profit.ManualAddProfit" class="control-label">Доп вознаграждение</label>
+                    <input asp-for="Profit.ManualAddProfit" class="form-control" />
+                    <span asp-validation-for="Profit.ManualAddProfit" class="text-danger"></span>
+                </div>
+                @*<div class="form-group col-md-3">
+                        <label asp-for="Profit.ManualProfit" class="control-label"></label>
+                        <input asp-for="Profit.ManualProfit" class="form-control" />
+                        <span asp-validation-for="Profit.ManualProfit" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group col-md-1">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Profit.IsHide" title="Скрыть" /> @Html.DisplayNameFor(model => model.Profit.IsHide)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

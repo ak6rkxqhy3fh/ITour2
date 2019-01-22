@@ -1,0 +1,241 @@
+﻿@page
+@model ITour.Pages.Reports.Commissions.IndexModel
+@{
+    ViewData["Title"] = "Коммиссия";
+}
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"CommissionFilter.OrderNumber", Model.CommissionFilter.OrderNumber.ToString() },
+{"CommissionFilter.AgencyCompanyId", Model.CommissionFilter?.AgencyCompanyId.ToString() },
+{"CommissionFilter.ManagerId", Model.CommissionFilter.ManagerId.ToString() },
+{"CommissionFilter.CustomerName", Model.CommissionFilter.CustomerName },
+{"CommissionFilter.OrderCommissionDateFrom", Model.CommissionFilter.OrderCommissionDateFrom.HasValue ? ((DateTime)Model.CommissionFilter.OrderCommissionDateFrom).ToString("yyyy-MM-dd") : "" },
+{"CommissionFilter.OrderCommissionDateTo", Model.CommissionFilter.OrderCommissionDateTo.HasValue ? ((DateTime)Model.CommissionFilter.OrderCommissionDateTo).ToString("yyyy-MM-dd") : "" },
+{"CommissionPaginate.PageSize", Model.CommissionPaginate.PageSize.ToString() },
+{"CommissionSort.SortState", Model.CommissionSort.SortState.ToString() }
+};
+}
+
+<div class="row">
+    <table class="col col-md-3">
+        <tr>
+            <td valign="top">
+                <h3>
+                    Комиссия
+                    <small>
+                        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                            <span class="glyphicon glyphicon-filter"></span> Фильтр
+                        </a>
+
+                    </small>
+                </h3>
+            </td>
+            <td>
+                <form method="post" enctype="multipart/form-data">
+                    <br /><button asp-page-handler="ExportCommissionReport" class="btn btn-default" asp-all-route-data="@AllRouteData">Excel</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@{
+    string inStr = Model.CommissionFilter.NotAllParamsIsNull ? "in" : "";
+}
+
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <input type="hidden" name="CommissionSort.SortState" value="@Model.CommissionSort.SortState" />
+        <form asp-page="./Index" method="get" id="filterForm" enctype="multipart/form-data">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-1">
+                        <label>№</label>
+                        <input asp-for="CommissionFilter.OrderNumber" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Агентство</label>
+                        <select asp-for="CommissionFilter.AgencyCompanyId" class="form-control col-md-3" asp-items="@ViewBag.FilterAgencyCompanyId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Менеджер</label>
+                        <select asp-for="CommissionFilter.ManagerId" class="form-control col-md-3" asp-items="@ViewBag.FilterManagerId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Заказчик</label>
+                        <input asp-for="CommissionFilter.CustomerName" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Дата комиссии</label>
+                        <div><input asp-for="CommissionFilter.OrderCommissionDateFrom" class="form-control col-md-3" /></div>
+                        <div><input asp-for="CommissionFilter.OrderCommissionDateTo" class="form-control col-md-3" /></div>
+                    </div>
+                    <div class="form-group col col-md-3 align-self-center">
+                        <br /><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Искать</button> | <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+    string glyphicon_triangle = "";
+}
+
+<table class="table table-condensed table-hover table-responsive table-striped">
+    <thead>
+        <tr>
+            <th nowrap>
+                @{Dictionary<string, string> OrderNumberAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionSort.SortOrder", Model.CommissionSort.OrderNumberSort.ToString() } }; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.OrderNumberAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.OrderNumberDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@OrderNumberAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Commission[0].OrderNumber)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> AgencyCompanyAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionSort.SortOrder", Model.CommissionSort.AgencyCompanyNameSort.ToString() } };}
+                @if (Model.CommissionSort.SortState == CommissionSortState.AgencyCompanyNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.AgencyCompanyNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@AgencyCompanyAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Commission[0].AgencyCompanyName)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> ManagerNameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionSort.SortOrder", Model.CommissionSort.ManagerNameSort.ToString() } };}
+                @if (Model.CommissionSort.SortState == CommissionSortState.ManagerNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.ManagerNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@ManagerNameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Commission[0].ManagerName)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> CustomerNameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionSort.SortOrder", Model.CommissionSort.CustomerNameSort.ToString() } };}
+                @if (Model.CommissionSort.SortState == CommissionSortState.CustomerNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.CustomerNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@CustomerNameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Commission[0].CustomerName)
+                </a>
+            </th>
+            <th>Туроператор</th>
+            <th>Партнер</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].OrderCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].IncomingPaymentsTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].CustomerDebt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].BankCommissionTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].OutgoingPaymentsTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission[0].OrderCommission)
+            </th>
+            <th>
+                @{Dictionary<string, string> OrderCommissionDateAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionSort.SortOrder", Model.CommissionSort.OrderCommissionDateSort.ToString() } };}
+                @if (Model.CommissionSort.SortState == CommissionSortState.OrderCommissionDateAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.CommissionSort.SortState == CommissionSortState.OrderCommissionDateDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@OrderCommissionDateAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Commission[0].OrderCommissionDate)
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Commission)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.OrderNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.AgencyCompanyName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ManagerName)</td>
+                <td>
+                    <table>
+                        <tr><td nowrap>@Html.DisplayFor(modelItem => item.CustomerCompanyName)</td></tr>
+                        <tr><td nowrap>@Html.DisplayFor(modelItem => item.CustomerName)</td></tr>
+                    </table>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Touroperators)</td>
+                <td>@Html.DisplayFor(modelItem => item.Partners)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderCostNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.IncomingPaymentsTotalNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.CustomerDebtNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.BankCommissionTotalNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.OutgoingPaymentsTotalNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderCommissionNumeric)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderCommissionDate)</td>
+            </tr>
+        }
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Итого: </th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.OrderCostNumeric)</th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.IncomingPaymentsTotalNumeric)</th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.CustomerDebtNumeric)</th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.BankCommissionTotalNumeric)</th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.OutgoingPaymentsTotalNumeric)</th>
+            <th>@Html.DisplayFor(model => model.CommissionTotals.OrderCommissionNumeric)</th>
+            <th></th>
+        </tr>
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.CommissionPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.CommissionPaginate.HasNextPage ? "disabled" : "";
+}
+
+@if (Model.CommissionFilter.AllParamsIsNull || (Model.CommissionFilter.NotAllParamsIsNull && Model.Commission.Count() > 300))
+{
+    <div class="row">
+        <table class="col-md-8">
+            <tr>
+                <td align="center">
+                    <ul class="pagination">
+                        <li class="page-item @prevDisabled" title="Первая">
+                            @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionPaginate.PageNumber", (1).ToString() } }; }
+                            <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                        </li>
+                        <li class="page-item @prevDisabled" title="Предыдущая">
+                            @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionPaginate.PageNumber", (Model.CommissionPaginate.PageNumber - 1).ToString() } };}
+                            <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                        </li>
+                        <li class="page-item @nextDisabled" title="Следующая">
+                            @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionPaginate.PageNumber", (Model.CommissionPaginate.PageNumber + 1).ToString() } }; }
+                            <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                        </li>
+                        <li class="page-item @nextDisabled" title="Последняя">
+                            @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "CommissionPaginate.PageNumber", (Model.CommissionPaginate.TotalPages).ToString() } }; }
+                            <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                        </li>
+                    </ul>
+                </td>
+                <td align="center">
+                    Страница @Model.CommissionPaginate.PageNumber из @Model.CommissionPaginate.TotalPages
+                </td>
+                <td align="center">По&nbsp;</td>
+                <td align="center"><select class="form-control" asp-for="@Model.CommissionPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+                <td align="center">&nbsp;строк</td>
+                <td align="center">Всего @Model.CommissionPaginate.Count записей</td>
+            </tr>
+        </table>
+    </div>
+}

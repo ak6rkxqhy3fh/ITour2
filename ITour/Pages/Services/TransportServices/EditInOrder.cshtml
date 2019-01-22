@@ -1,0 +1,112 @@
+﻿@page
+@model ITour.Pages.Services.TransportServices.EditInOrderModel
+@{
+    ViewData["Title"] = "Изменение услуги";
+}
+<h3>Изменить услугу Перевозки к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TransportService.Id" />
+            <input type="hidden" asp-for="TransportService.TenantId" />
+            <input type="hidden" asp-for="TransportService.OrderId" />
+            <input type="hidden" asp-for="TransportService.PacketTourServiceId" />
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.TransportTypeId" class="control-label"></label>
+                    <select asp-for="TransportService.TransportTypeId" class="form-control" asp-items="ViewBag.TransportTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.TripNumber" class="control-label"></label>
+                    <input asp-for="TransportService.TripNumber" class="form-control" />
+                    <span asp-validation-for="TransportService.TripNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="TransportService.Tickets" class="control-label"></label>
+                    <input asp-for="TransportService.Tickets" class="form-control" />
+                    <span asp-validation-for="TransportService.Tickets" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.DepartureSity" class="control-label"></label>
+                    <input asp-for="TransportService.DepartureSity" class="form-control" />
+                    <span asp-validation-for="TransportService.DepartureSity" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.DepartureTerminal" class="control-label"></label>
+                    <input asp-for="TransportService.DepartureTerminal" class="form-control" />
+                    <span asp-validation-for="TransportService.DepartureTerminal" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.ArrivalSity" class="control-label"></label>
+                    <input asp-for="TransportService.ArrivalSity" class="form-control" />
+                    <span asp-validation-for="TransportService.ArrivalSity" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.ArrivalTerminal" class="control-label"></label>
+                    <input asp-for="TransportService.ArrivalTerminal" class="form-control" />
+                    <span asp-validation-for="TransportService.ArrivalTerminal" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="TransportService.DateBegin" class="control-label">Дата отпр</label>
+                    <input asp-for="TransportService.DateBegin" class="form-control" />
+                    <span asp-validation-for="TransportService.DateBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TransportService.TimeBegin" class="control-label">Время отпр</label>
+                    <input asp-for="TransportService.TimeBegin" class="form-control" />
+                    <span asp-validation-for="TransportService.TimeBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TransportService.DateEnd" class="control-label">Дата прибытия</label>
+                    <input asp-for="TransportService.DateEnd" class="form-control" />
+                    <span asp-validation-for="TransportService.DateEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TransportService.TimeEnd" class="control-label">Время прибытия</label>
+                    <input asp-for="TransportService.TimeEnd" class="form-control" />
+                    <span asp-validation-for="TransportService.TimeEnd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="TransportService.Comment" class="control-label"></label>
+                    <input asp-for="TransportService.Comment" class="form-control" />
+                    <span asp-validation-for="TransportService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.Cost" class="control-label"></label>
+                    <input asp-for="TransportService.Cost" class="form-control" />
+                    <span asp-validation-for="TransportService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="TransportService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransportService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="TransportService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="TransportService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

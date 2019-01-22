@@ -1,0 +1,53 @@
+﻿@page
+@model ITour.Pages.AppUsers.Managers.CreateModel
+
+@{
+    ViewData["Title"] = "Создать Менеджера";
+}
+
+<h3>Создать Менеджера</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Manager.PersonId" class="control-label"></label>
+                <select asp-for="Manager.PersonId" class="form-control" asp-items="ViewBag.PersonId">
+                    <option value="">- Выберите -</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manager.AgencyOfficeId" class="control-label"></label>
+                <select asp-for="Manager.AgencyOfficeId" class="form-control" asp-items="ViewBag.AgencyOfficeId">
+                    <option value="">- Выберите -</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AllRoles" class="control-label"></label>
+                @foreach (IdentityRole role in Model.AllRoles)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="checkbox checkbox-inline" name="roles" value="@role.Name" />
+                            @role.Name
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

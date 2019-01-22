@@ -1,0 +1,339 @@
+﻿@page
+@model ITour.Pages.AppUsers.Customers.CreateInOrderCompanyModel
+
+@{
+    ViewData["Title"] = "Создать Заказчика";
+}
+
+<h3>Создать Заказчика Юр лицо</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">Представитель компании</label>
+                        <input type="search" name="PersonFullName" id="PersonFullName" value="@Model.Person?.FullName" class="form-control" placeholder="Введите три буквы">
+                        <input type="hidden" name="PersonId" id="PersonId" value="@Model.Person?.Id">
+                    </div>
+                    <div class="col-md-4">
+                        <br><button type="button" class="btn btn-default" data-toggle="modal" data-target="#PersonModal"><span class="glyphicon glyphicon-plus"></span> Представитель компании</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Компания</label>
+                        <input type="search" name="CustomerCompanyName" id="CustomerCompanyName" value="@Model.CustomerCompany?.Name" class="form-control" placeholder="Введите три буквы">
+                        <input type="hidden" name="CustomerCompanyId" id="CustomerCompanyId" value="@Model.CustomerCompany?.Id">
+                    </div>
+                    <div class="col-md-4">
+                        <br><button type="button" class="btn btn-default" data-toggle="modal" data-target="#CustomerCompanyModal"><span class="glyphicon glyphicon-plus"></span> Создать Компанию</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="PersonModal" class="modal fade">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h5 class="modal-title">Создать Физ. лицо</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="Person.Surname" class="control-label"></label>
+                                    <input asp-for="Person.Surname" class="form-control" />
+                                    <span asp-validation-for="Person.Surname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="Person.Firstname" class="control-label"></label>
+                                    <input asp-for="Person.Firstname" class="form-control" />
+                                    <span asp-validation-for="Person.Firstname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="Person.Middlename" class="control-label"></label>
+                                    <input asp-for="Person.Middlename" class="form-control" />
+                                    <span asp-validation-for="Person.Middlename" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Person.BirthDate" class="control-label"></label>
+                                    <input asp-for="Person.BirthDate" class="form-control" />
+                                    <span asp-validation-for="Person.BirthDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Person.ApplicationUser.PhoneNumber">Телефон</label>
+                                    <input asp-for="Person.ApplicationUser.PhoneNumber" class="form-control maskedinput-phone" />
+                                    <span asp-validation-for="Person.ApplicationUser.PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Person.ApplicationUser.Email"></label>
+                                    <input asp-for="Person.ApplicationUser.Email" class="form-control" type="email" />
+                                    <span asp-validation-for="Person.ApplicationUser.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label asp-for="Person.Address" class="control-label"></label>
+                                    <input asp-for="Person.Address" class="form-control" />
+                                    <span asp-validation-for="Person.Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Person.SurnameGenitive" class="control-label">Фамилия (родит. падеж)</label>
+                                    <input asp-for="Person.SurnameGenitive" class="form-control" />
+                                    <span asp-validation-for="Person.SurnameGenitive" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Person.FirstnameGenitive" class="control-label">Имя (род. пад.)</label>
+                                    <input asp-for="Person.FirstnameGenitive" class="form-control" />
+                                    <span asp-validation-for="Person.FirstnameGenitive" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Person.MiddlenameGenitive" class="control-label">Отчество (р. п.)</label>
+                                    <input asp-for="Person.MiddlenameGenitive" class="form-control" />
+                                    <span asp-validation-for="Person.MiddlenameGenitive" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label asp-for="Person.Comment" class="control-label"></label>
+                                    <input asp-for="Person.Comment" class="form-control" />
+                                    <span asp-validation-for="Person.Comment" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="panel-group" id="documentsAccordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#documentsCollapse">Документы</a>
+                                        </h4>
+                                    </div>
+                                    <div id="documentsCollapse" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <label asp-for="Person.IdDocument.DocumentTypeId" class="control-label"></label>
+                                                    <select asp-for="Person.IdDocument.DocumentTypeId" class="form-control" asp-items="ViewBag.IdDocumentTypeId">
+                                                        <option value="">- Выберите -</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label asp-for="Person.IdDocument.Series" class="control-label"></label>
+                                                    <input asp-for="Person.IdDocument.Series" class="form-control" />
+                                                    <span asp-validation-for="Person.IdDocument.Series" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label asp-for="Person.IdDocument.Number" class="control-label"></label>
+                                                    <input asp-for="Person.IdDocument.Number" class="form-control" />
+                                                    <span asp-validation-for="Person.IdDocument.Number" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label asp-for="Person.IdDocument.IssuedDate" class="control-label"></label>
+                                                    <input asp-for="Person.IdDocument.IssuedDate" class="form-control" />
+                                                    <span asp-validation-for="Person.IdDocument.IssuedDate" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label asp-for="Person.IdDocument.ExpirationDate" class="control-label"></label>
+                                                    <input asp-for="Person.IdDocument.ExpirationDate" class="form-control" />
+                                                    <span asp-validation-for="Person.IdDocument.ExpirationDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <label asp-for="Person.IdDocument.IssuedBy" class="control-label"></label>
+                                                    <input asp-for="Person.IdDocument.IssuedBy" class="form-control" />
+                                                    <span asp-validation-for="Person.IdDocument.IssuedBy" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <br /><b>Загран паспорт:</b>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label asp-for="Person.Passport.Series" class="control-label"></label>
+                                                    <input asp-for="Person.Passport.Series" class="form-control" />
+                                                    <span asp-validation-for="Person.Passport.Series" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label asp-for="Person.Passport.Number" class="control-label"></label>
+                                                    <input asp-for="Person.Passport.Number" class="form-control" />
+                                                    <span asp-validation-for="Person.Passport.Number" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label asp-for="Person.Passport.IssuedDate" class="control-label"></label>
+                                                    <input asp-for="Person.Passport.IssuedDate" class="form-control" />
+                                                    <span asp-validation-for="Person.Passport.IssuedDate" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label asp-for="Person.Passport.ExpirationDate" class="control-label"></label>
+                                                    <input asp-for="Person.Passport.ExpirationDate" class="form-control" />
+                                                    <span asp-validation-for="Person.Passport.ExpirationDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <label asp-for="Person.Passport.IssuedBy" class="control-label"></label>
+                                                    <input asp-for="Person.Passport.IssuedBy" class="form-control" />
+                                                    <span asp-validation-for="Person.Passport.IssuedBy" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button asp-page-handler="CreatePerson" class="btn btn-primary">Создать</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="CustomerCompanyModal" class="modal fade">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h5 class="modal-title">Создать Юр. лицо</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.Name" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.Name" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-9">
+                                    <label asp-for="CustomerCompany.FullName" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.FullName" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.INN" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.INN" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.INN" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.OGRN" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.OGRN" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.OGRN" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.Phone" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.Phone" class="form-control maskedinput-phone " />
+                                    <span asp-validation-for="CustomerCompany.Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CustomerCompany.AddressLegal" class="control-label"></label>
+                                <input asp-for="CustomerCompany.AddressLegal" class="form-control" />
+                                <span asp-validation-for="CustomerCompany.AddressLegal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CustomerCompany.AddressPostal" class="control-label"></label>
+                                <input asp-for="CustomerCompany.AddressPostal" class="form-control" />
+                                <span asp-validation-for="CustomerCompany.AddressPostal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CustomerCompany.Bank" class="control-label"></label>
+                                <input asp-for="CustomerCompany.Bank" class="form-control" />
+                                <span asp-validation-for="CustomerCompany.Bank" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.Email" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.Email" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="CustomerCompany.Website" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.Website" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.Website" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CustomerCompany.ActionCause" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.ActionCause" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.ActionCause" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CustomerCompany.PersonPost" class="control-label"></label>
+                                    <input asp-for="CustomerCompany.PersonPost" class="form-control" />
+                                    <span asp-validation-for="CustomerCompany.PersonPost" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CustomerCompany.Comment" class="control-label"></label>
+                                <input asp-for="CustomerCompany.Comment" class="form-control" />
+                                <span asp-validation-for="CustomerCompany.Comment" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button asp-page-handler="CreateCustomerCompany" class="btn btn-primary">Создать</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" asp-page-handler="" value="Создать и добавить в Заказ" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Customers" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(function () {
+            $("#PersonFullName").autocomplete({
+                minLength: 3,
+                source: "./SearchPerson",
+                select: function (event, ui) {
+                    $("#PersonFullName").val(ui.item.label);
+                    $("#PersonId").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#CustomerCompanyName").autocomplete({
+                minLength: 3,
+                source: "./SearchCustomerCompany",
+                select: function (event, ui) {
+                    $("#CustomerCompanyName").val(ui.item.label);
+                    $("#CustomerCompanyId").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+}
+
+

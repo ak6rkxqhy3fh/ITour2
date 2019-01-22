@@ -1,0 +1,15 @@
+﻿@page
+@model ITour.Pages.Prints.Templates.DetailsModel
+
+@{
+    ViewData["Title"] = Model.PrintTemplate.Title;
+}
+
+<h3>Предварительный просмотр документа</h3>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PrintTemplate.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+<hr />
+
+@Html.Raw(Model.DocumentContent)

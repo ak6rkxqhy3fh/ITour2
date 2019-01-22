@@ -1,0 +1,67 @@
+﻿@page
+@model ITour.Pages.Services.PacketTourServices.EditInOrderModel
+
+@{
+    ViewData["Title"] = "EditInOrder";
+}
+
+<h3>Изменить Пакетный тур</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PacketTourService.Id" />
+            <input type="hidden" asp-for="PacketTourService.TenantId" />
+            <input type="hidden" asp-for="PacketTourService.OrderId" />
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label asp-for="PacketTourService.Name" class="control-label"></label>
+                    <input asp-for="PacketTourService.Name" class="form-control" />
+                    <span asp-validation-for="PacketTourService.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="PacketTourService.Description" class="control-label"></label>
+                    <input asp-for="PacketTourService.Description" class="form-control" />
+                    <span asp-validation-for="PacketTourService.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PacketTourService.Comment" class="control-label"></label>
+                <input asp-for="PacketTourService.Comment" class="form-control" />
+                <span asp-validation-for="PacketTourService.Comment" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="PacketTourService.Cost" class="control-label"></label>
+                    <input asp-for="PacketTourService.Cost" class="form-control" />
+                    <span asp-validation-for="PacketTourService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="PacketTourService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="PacketTourService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">Выберите</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="PacketTourService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="PacketTourService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="PacketTourService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Services" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

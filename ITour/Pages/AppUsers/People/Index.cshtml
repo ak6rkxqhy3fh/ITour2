@@ -1,0 +1,165 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.IndexModel
+
+@{
+    ViewData["Title"] = "Физ. лица";
+}
+
+<h3>
+    Физ. лица
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <span class="glyphicon glyphicon-filter"></span> Фильтр
+        </a>
+    </small>
+</h3>
+@{
+    string inStr = Model.PersonFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-2">
+                        <label>Фамилия</label>
+                        <input asp-for="PersonFilter.Surname" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Имя</label>
+                        <input asp-for="PersonFilter.Firstname" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Телефон</label>
+                        <input asp-for="PersonFilter.PhoneNumber" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Email</label>
+                        <input asp-for="PersonFilter.Email" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Месяц рождения</label>
+                        <select asp-for="PersonFilter.MonthOfBirth" class="form-control col-md-3" asp-items="@ViewBag.MonthsOfYear">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="PersonSort.SortState" value="@Model.PersonSort.SortState" />
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"PersonFilter.Surname", Model.PersonFilter?.Surname?.ToString() },
+{"PersonFilter.Firstname", Model.PersonFilter?.Firstname?.ToString() },
+{"PersonFilter.PhoneNumber", Model.PersonFilter?.PhoneNumber?.ToString() },
+{"PersonFilter.Email", Model.PersonFilter?.Email?.ToString() },
+{"PersonFilter.MonthOfBirth", Model.PersonFilter?.MonthOfBirth?.ToString() },
+{"PersonSort.SortState", Model.PersonSort.SortState.ToString() },
+{"PersonPaginate.PageSize", Model.PersonPaginate?.PageSize.ToString() }
+};
+    string glyphicon_triangle = "";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th nowrap>
+                @{Dictionary<string, string> SurnameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonSort.SortOrder", Model.PersonSort.SurnameSort.ToString() } }; }
+                @if (Model.PersonSort.SortState == PersonSortState.SurnameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PersonSort.SortState == PersonSortState.SurnameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@SurnameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Person[0].Surname)
+                </a>
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Person[0].Firstname)</th>
+            <th>@Html.DisplayNameFor(model => model.Person[0].Middlename)</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th nowrap>
+                @{Dictionary<string, string> BirthDateAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonSort.SortOrder", Model.PersonSort.BirthDateSort.ToString() } }; }
+                @if (Model.PersonSort.SortState == PersonSortState.BirthDateAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PersonSort.SortState == PersonSortState.BirthDateDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@BirthDateAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Person[0].BirthDate)
+                </a>
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Person[0].Comment)</th>
+            <th><span class="glyphicon glyphicon-camera" title="Файлы"></span></th>
+            @*<th>@Html.DisplayNameFor(model => model.Person[0].IsEmployee)</th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Person)
+        {
+            string isBirthDayToday = item.IsBirthDayToday ? "info" : "";
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Surname)</td>
+            <td>@Html.DisplayFor(modelItem => item.Firstname)</td>
+            <td>@Html.DisplayFor(modelItem => item.Middlename)</td>
+            <td nowrap>@Html.DisplayFor(modelItem => item.ApplicationUser.PhoneNumber)</td>
+            <td nowrap>@Html.DisplayFor(modelItem => item.ApplicationUser.Email)</td>
+            <td class=" = @isBirthDayToday">@Html.DisplayFor(modelItem => item.BirthDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+            <td><a asp-page="./Files/Index" asp-route-personId="@item.Id" title="Файлы"><span class="label label-default">@item.PersonFiles.Count</span></a></td>
+            @*<td>@Html.DisplayFor(modelItem => item.IsEmployee)</td>*@
+            <td nowrap>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-default" title="Изменить"><span class="glyphicon glyphicon-edit"></span></a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-default" title="Детали"><span class="glyphicon glyphicon-info-sign"></span></a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-default" title="Удалить"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.PersonPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.PersonPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonPaginate.PageNumber", (Model.PersonPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonPaginate.PageNumber", (Model.PersonPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PersonPaginate.PageNumber", (Model.PersonPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.PersonPaginate.PageNumber из @Model.PersonPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.PersonPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.PersonPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>

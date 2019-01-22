@@ -1,0 +1,70 @@
+﻿@page
+@model ITour.Pages.Prints.Templates.IndexModel
+
+@{
+    ViewData["Title"] = "Шаблоны документов";
+}
+
+<h3>
+    Шаблоны документов
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+    </small>
+</h3>
+
+<div class="row">
+    <form method="post">
+        <div>
+            <div class="row  text-center">
+                <div class="h4 col-md-2">
+                    @Html.DisplayNameFor(model => model.PrintTemplate[0].Title)
+                </div>
+                <div class="h4 col-md-6">
+                    @Html.DisplayNameFor(model => model.PrintTemplate[0].Description)
+                </div>
+                <div class="h4 col-md-1">
+                    @Html.DisplayNameFor(model => model.PrintTemplate[0].IsActive)
+                </div>
+                <div class="h4 col-md-3"></div>
+            </div>
+        </div>
+        <div sortable-container>
+            @for (int i = 0; i < Model.PrintTemplate.Count; i++)
+            {
+                string IsActive = Model.PrintTemplate[i].IsActive ? "checked" : "";
+
+                <input type="hidden" name="PrintTemplate[@i].Id" value="@Model.PrintTemplate[i].Id" />
+                <input type="hidden" name="PrintTemplate[@i].Title" value="@Model.PrintTemplate[i].Title" />
+
+                <div class="row ui-state-default" sortable-item="@i" style="display: flex; align-items: center;">
+                    <div class="col-md-2">
+                        <span class="btn btn-default glyphicon glyphicon-sort" title="Для сортировки перетащите вверх или вниз"></span>&nbsp;&nbsp;
+                        @(Model.PrintTemplate[i].Sequence). <label>@Model.PrintTemplate[i].Title</label>
+                    </div>
+                    <div class="col-md-6"><p>@Model.PrintTemplate[i].Description</p></div>
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <input type="checkbox" name="PrintTemplate[@i].IsActive" value="true" @IsActive class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-default" asp-page="./Details" asp-route-id="@Model.PrintTemplate[i].Id"><span class="glyphicon glyphicon-eye-open" title="Просмотр"></span></a>
+                        <a class="btn btn-default" asp-page="./Edit" asp-route-id="@Model.PrintTemplate[i].Id"><span class="glyphicon glyphicon-edit" title="Изменить"></span></a>
+                        <a class="btn btn-default" asp-page="./Delete" asp-route-id="@Model.PrintTemplate[i].Id" title="Удалить"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a class="btn btn-default" asp-page="./Details" asp-route-id="@Model.PrintTemplate[i].Id" asp-route-contentType="pdf" target="_blank" title="Просмотр PDF">PDF</a>
+                        <a class="btn btn-default" asp-page="./Details" asp-route-id="@Model.PrintTemplate[i].Id" asp-route-contentType="html" target="_blank" title="Просмотр HTML">HTML</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Сохранить изменения" class="btn btn-default" />
+        </div>
+        <input type="hidden" name="sortableResult" id="sortableResult" />
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/sortable.js"></script>
+}

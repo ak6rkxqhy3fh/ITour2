@@ -1,0 +1,50 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.Files.IndexModel
+
+@{
+    ViewData["Title"] = "Файлы";
+}
+
+<h3>
+    Файлы @Model.Person.SurnameInitials
+    <small>
+        <a class="btn btn-default" asp-page="Create" asp-route-personId="@Model.Person.Id"><span class="glyphicon glyphicon-upload"></span> Загрузить</a> ( JPEG не более 1 MB )
+    </small>
+</h3>
+
+<table class="table">
+    <thead>
+        <tr><th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonFile[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonFile[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PersonFile)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content($"/AppUsers/People/Files/Thumbnail?id={item.Id}")" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Открыть</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id" asp-route-personId="@item.PersonId">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-page="../Index">Назадк к списку Физ. лиц</a>
+</div>

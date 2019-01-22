@@ -1,0 +1,45 @@
+﻿@page
+@model ITour.Pages.AppUsers.Managers.PowerAttorneys.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>PowerAttorney</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PowerAttorney.Number" class="control-label"></label>
+                <input asp-for="PowerAttorney.Number" class="form-control" />
+                <span asp-validation-for="PowerAttorney.Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PowerAttorney.IssuedDate" class="control-label"></label>
+                <input asp-for="PowerAttorney.IssuedDate" class="form-control" />
+                <span asp-validation-for="PowerAttorney.IssuedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PowerAttorney.ManagerId" class="control-label"></label>
+                <select asp-for="PowerAttorney.ManagerId" class ="form-control" asp-items="ViewBag.ManagerId">
+                    <option value="">- Выберите -</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

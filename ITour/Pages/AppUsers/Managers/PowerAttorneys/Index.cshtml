@@ -1,0 +1,48 @@
+﻿@page
+@model ITour.Pages.AppUsers.Managers.PowerAttorneys.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PowerAttorney[0].Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PowerAttorney[0].IssuedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PowerAttorney[0].Manager)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PowerAttorney) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssuedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

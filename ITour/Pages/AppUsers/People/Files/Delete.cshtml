@@ -1,0 +1,39 @@
+﻿@page
+@model ITour.Pages.AppUsers.People.Files.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить файл";
+}
+
+<h3>Удалить файл</h3>
+<h4>Вы уверены, что хотите удалить?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonFile.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonFile.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonFile.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonFile.Description)
+        </dd>
+        <dt>
+            Изображение
+        </dt>
+        <dd>
+            <img src="@Url.Content($"/AppUsers/People/Files/Thumbnail?id={Model.PersonFile.Id}")" />
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="PersonFile.Id" />
+        <input type="hidden" value="@ViewBag.PersonId" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="./Index" asp-route-personId="@Model.PersonFile.PersonId">Назад к списку</a>
+    </form>
+</div>

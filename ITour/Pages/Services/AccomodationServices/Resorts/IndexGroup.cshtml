@@ -1,0 +1,44 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.Resorts.IndexGroupModel
+
+@{
+    ViewData["Title"] = "IndexGroup";
+}
+
+<h2>IndexGroup</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    @foreach (var resortGroup in Model.ResortGroups)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading-@resortGroup.Key.Id">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@resortGroup.Key.Id" aria-expanded="true" aria-controls="collapse-@resortGroup.Key.Id">
+                        @Html.DisplayFor(modelItem => resortGroup.Key.Name)
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-@resortGroup.Key.Id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@resortGroup.Key.Id">
+                <div class="panel-body">
+                    <table class="table">
+                        @foreach (var resort in resortGroup)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => resort.Name)</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@resort.Id">Изменить</a> |
+                                    <a asp-page="./Details" asp-route-id="@resort.Id">Детали</a> |
+                                    <a asp-page="./Delete" asp-route-id="@resort.Id">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

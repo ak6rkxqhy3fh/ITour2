@@ -1,0 +1,173 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorCompanies.IndexModel
+
+@{
+    ViewData["Title"] = "Юр. лица туроператоров";
+}
+
+<h3>
+    Юр. лица туроператоров <small><a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a></small>
+    <small>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <i class="glyphicon glyphicon-filter"></i> Фильтр
+        </a>
+    </small>
+</h3>
+@{
+    string inStr = Model.TouroperatorCompanyFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-3">
+                        <label>Туроператор</label>
+                        <select asp-for="TouroperatorCompanyFilter.TouroperatorBrandId" class="form-control col-md-3" asp-items="@ViewBag.FilterTouroperatorBrandId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-3">
+                        <label>Реестровый № или название</label>
+                        <input asp-for="TouroperatorCompanyFilter.RagistryNumberName" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-3 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="TouroperatorCompanySort.SortState" value="@Model.TouroperatorCompanySort.SortState" />
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"TouroperatorCompanyFilter.TouroperatorBrandId", Model.TouroperatorCompanyFilter.TouroperatorBrandId.ToString()},
+{"TouroperatorCompanyFilter.RagistryNumberName", Model.TouroperatorCompanyFilter.RagistryNumberName},
+{"TouroperatorCompanyPaginate.PageSize", Model.TouroperatorCompanyPaginate.PageSize.ToString() },
+{"TouroperatorCompanySort.SortState", Model.TouroperatorCompanySort.SortState.ToString() }
+};
+    string glyphicon_triangle = "";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TouroperatorCompany[0].TouroperatorBrands)</th>
+
+            <th nowrap>
+                @{Dictionary<string, string> NameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanySort.SortOrder", Model.TouroperatorCompanySort.NameSort.ToString() } }; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.NameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.NameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@NameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.TouroperatorCompany[0].Name)
+                </a>
+            </th>
+
+            <th nowrap>
+                @{Dictionary<string, string> RegistryNumberAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanySort.SortOrder", Model.TouroperatorCompanySort.RegistryNumberSort.ToString() } }; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.RegistryNumberAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.RegistryNumberDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@RegistryNumberAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.TouroperatorCompany[0].RegistryNumber)
+                </a>
+            </th>
+            <th>@Html.DisplayNameFor(model => model.TouroperatorCompany[0].FinGaranteeTotalAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.TouroperatorCompany[0].FinGaranteeAmountNewPeriod)</th>
+
+            <th nowrap>
+                @{Dictionary<string, string> FinGaranteeExpirationDateAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanySort.SortOrder", Model.TouroperatorCompanySort.FinGaranteeExpirationDateSort.ToString() } }; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.FinGaranteeExpirationDateAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.TouroperatorCompanySort.SortState == TouroperatorCompanySortState.FinGaranteeExpirationDateDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@FinGaranteeExpirationDateAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.TouroperatorCompany[0].FinGaranteeExpirationDateNewPeriod)
+                </a>
+            </th>
+            <th>@Html.DisplayNameFor(model => model.TouroperatorCompany[0].Website)</th>
+            <th>@Html.DisplayNameFor(model => model.TouroperatorCompany[0].Comment)</th>
+            <th><span class="glyphicon glyphicon-check" title="Действует"></span></th>
+            <th><span class="glyphicon glyphicon-download-alt" title="Загружен с Ростуризма"></span></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TouroperatorCompany)
+        {
+            string invalidTr = !item.IsValid ? "warning" : "";
+            string expiredTd = item.IsFinGaranteeDateNewPeriodExpired ? "warning" : "";
+            string expiredDiv = item.IsFinGaranteeDateNewPeriodExpired ? "text-danger" : "";
+
+            <tr class="@invalidTr">
+                <td>@(item.TouroperatorBrands.Any() ? item.TouroperatorBrands[0]?.TouroperatorBrand.Name : "")</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td nowrap>@Html.DisplayFor(modelItem => item.RegistryNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.FinGaranteeTotalAmount)</td>
+                <td>@Html.DisplayFor(modelItem => item.FinGaranteeAmountNewPeriod)</td>
+                <td class="@expiredTd">
+                    <div class="text-center @expiredDiv">
+                        @Html.DisplayFor(modelItem => item.FinGaranteeExpirationDateNewPeriodString)
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Website)</td>
+                <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsValid)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsOpenData)</td>
+                <td nowrap>
+                    <a asp-page="./Details" asp-route-id="@item.Id" title="Подробно"><span class="glyphicon glyphicon-info-sign"></span></a>
+                    @*TODO разобраться!*@
+                    @if (!item.IsOpenData)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id" title="Изменить"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" title="Удалить"><span class="glyphicon glyphicon-remove"></span></a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.TouroperatorCompanyPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.TouroperatorCompanyPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanyPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanyPaginate.PageNumber", (Model.TouroperatorCompanyPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanyPaginate.PageNumber", (Model.TouroperatorCompanyPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "TouroperatorCompanyPaginate.PageNumber", (Model.TouroperatorCompanyPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.TouroperatorCompanyPaginate.PageNumber из @Model.TouroperatorCompanyPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.TouroperatorCompanyPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.TouroperatorCompanyPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>

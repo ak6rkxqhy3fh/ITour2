@@ -1,0 +1,63 @@
+﻿@page
+@model ITour.Pages.Services.MaintenanceServices.CreateInOrderModel
+@{
+    ViewData["Title"] = "Создать услугу";
+}
+<h3>Создать Встречи, проводы, сопровождение</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label asp-for="MaintenanceService.Name" class="control-label"></label>
+                    <input asp-for="MaintenanceService.Name" class="form-control" value="Встречи, проводы, сопровождение" />
+                    <span asp-validation-for="MaintenanceService.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="MaintenanceService.Description" class="control-label"></label>
+                    <input asp-for="MaintenanceService.Description" class="form-control" value="Регистрация на рейс в аэропорту за 2,5 часа до вылета. Получение документов в Турагентстве за 2-3 дня до вылета." />
+                    <span asp-validation-for="MaintenanceService.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="MaintenanceService.Comment" class="control-label"></label>
+                    <input asp-for="MaintenanceService.Comment" class="form-control" />
+                    <span asp-validation-for="MaintenanceService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label asp-for="MaintenanceService.Cost" class="control-label"></label>
+                        <input asp-for="MaintenanceService.Cost" class="form-control" value="0,00" />
+                        <span asp-validation-for="MaintenanceService.Cost" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="MaintenanceService.CurrencyTypeId" class="control-label"></label>
+                        <select asp-for="MaintenanceService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                            <option value="">--- Выберите ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="MaintenanceService.ExchangeRate" class="control-label"></label>
+                        <input asp-for="MaintenanceService.ExchangeRate" class="form-control" />
+                        <span asp-validation-for="MaintenanceService.ExchangeRate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                    @{
+                        string returnPage = (string)TempData.Peek("ReturnPage");
+                        string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                    }
+                    <a asp-page="@returnPage" asp-fragment="Services" asp-route-id="@orderId">Назад к заказу</a>
+                </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

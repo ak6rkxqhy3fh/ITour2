@@ -1,0 +1,62 @@
+﻿@page
+@model ITour.Pages.Payments.IncomingPayments.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить входящий платеж";
+}
+
+<h3>Удалить входящий платеж</h3>
+<h4>Вы уверены, что хотите удалить?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.ReceiptNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.ReceiptNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.Order.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentForm.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.Comment)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="IncomingPayment.Id" value="@Model.IncomingPayment.Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="../Index">Назад к Платежам</a>
+    </form>
+</div>

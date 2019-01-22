@@ -1,0 +1,43 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.AgencyCompanies.Licenses.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>License</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.License.AgencyCompany)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.License.AgencyCompany.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.License.AgencyOffice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.License.AgencyOffice.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.License.LicenseNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.License.LicenseNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.License.LicenseDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.License.LicenseDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.License.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

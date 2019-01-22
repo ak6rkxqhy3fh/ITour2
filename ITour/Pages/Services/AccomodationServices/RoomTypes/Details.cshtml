@@ -1,0 +1,24 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.RoomTypes.DetailsModel
+
+@{
+    ViewData["Title"] = "Тип номера";
+}
+
+<h3>Тип номера</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.RoomType.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>

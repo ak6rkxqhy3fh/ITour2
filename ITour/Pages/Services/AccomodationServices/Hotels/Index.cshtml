@@ -1,0 +1,144 @@
+﻿@page "{handler?}"
+@model ITour.Pages.Services.AccomodationServices.Hotels.IndexModel
+@{
+    ViewData["Title"] = "Отели";
+}
+
+<h3>
+    Отели
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <span class="glyphicon glyphicon-filter"></span> Фильтр
+        </a>
+    </small>
+</h3>
+
+@{
+    string inStr = Model.HotelFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-2">
+                        <label>Страна</label>
+                        <select asp-for="HotelFilter.CountryId" CountryId class="form-control col-md-3" asp-items="@ViewBag.FilterCountryId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Курорт</label>
+                        <select asp-for="HotelFilter.ResortId" ResortId class="form-control col-md-3" asp-items="@ViewBag.FilterResortId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-3 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"HotelFilter.CountryId", Model.HotelFilter?.CountryId.ToString() },
+{"HotelPaginate.PageSize", Model.HotelPaginate?.PageSize.ToString() }
+};
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel[0].Resort.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel[0].Resort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel[0].NameEn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Hotel)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resort.Country.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resort.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameEn)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Детали</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.HotelPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.HotelPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "HotelPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "HotelPaginate.PageNumber", (Model.HotelPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "HotelPaginate.PageNumber", (Model.HotelPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "HotelPaginate.PageNumber", (Model.HotelPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.HotelPaginate.PageNumber из @Model.HotelPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.HotelPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.HotelPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/cascading-resort.js"></script>
+}
+
+
+

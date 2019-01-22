@@ -1,0 +1,146 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-ITour-3DDD548D-BB01-41A1-8E28-5ECF6500E9B1</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Admin\Services\**" />
+    <Content Remove="Pages\Admin\Services\**" />
+    <EmbeddedResource Remove="Pages\Admin\Services\**" />
+    <None Remove="Pages\Admin\Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20181102150050_Initial.cs" />
+    <Compile Remove="Data\Migrations\20181102150050_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181102150712_Initial.cs" />
+    <Compile Remove="Data\Migrations\20181102150712_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181103165138_Initial2.cs" />
+    <Compile Remove="Data\Migrations\20181103165138_Initial2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181103170916_Initial3.cs" />
+    <Compile Remove="Data\Migrations\20181103170916_Initial3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181112063830_Remove_Sequence_OrderNumber.cs" />
+    <Compile Remove="Data\Migrations\20181112063830_Remove_Sequence_OrderNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181123153544_Add_Rewards_to_Order.cs" />
+    <Compile Remove="Data\Migrations\20181123153544_Add_Rewards_to_Order.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181123154100_Add_Rewards_to_Order.cs" />
+    <Compile Remove="Data\Migrations\20181123154100_Add_Rewards_to_Order.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181124092158_Profits.cs" />
+    <Compile Remove="Data\Migrations\20181124092158_Profits.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181206061627_OrderNumber_table.cs" />
+    <Compile Remove="Data\Migrations\20181206061627_OrderNumber_table.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Prints\Blanks\ContractCompany.html" />
+    <None Remove="Pages\Prints\Blanks\ContractPerson.html" />
+    <None Remove="Pages\Prints\Blanks\Order.html" />
+    <None Remove="Pages\Prints\Blanks\Tourproduct.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Prints\Blanks\ContractCompany.html">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Pages\Prints\Blanks\ContractPerson.html">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Pages\Prints\Blanks\Order.html">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Pages\Prints\Blanks\Tourproduct.html">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup> 
+  
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.9.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" PrivateAssets="All" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Sendgrid" Version="9.10.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Numerals\Numerals.csproj" />
+    <ProjectReference Include="..\Touroperators\Touroperators.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Identity\Pages\_Layout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\AppUsers\Customers\CreateInOrderCompany.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\AppUsers\Customers\CreateAsCompany.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\AppUsers\Customers\CreateAsPerson.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Orders\CreateNew.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Prints\ad9d4cd1-715e-4228-962d-a6f2e79c16bd\PrintOrder.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Prints\ViewAsPdf.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\IncomingPayments\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\IncomingPayments\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\IncomingPayments\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\IncomingPayments\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\OutgoingPayments\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\OutgoingPayments\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\OutgoingPayments\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Profits\OutgoingPayments\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Reports\ComingDeparture\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Services\MaintenanceServices\CreateInOrder.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Services\MaintenanceServices\EditInOrder.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Commission\" />
+  </ItemGroup>
+  
+</Project>

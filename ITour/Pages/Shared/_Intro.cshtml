@@ -1,0 +1,30 @@
+﻿<script type="text/javascript">
+    function writeTextByJS(id, text, speed) {
+
+        var ele = document.getElementById(id),
+            txt = text.join("").split("");
+
+        var interval = setInterval(function () {
+
+            if (!txt[0]) {
+
+                return clearInterval(interval);
+            };
+
+            ele.innerHTML += txt.shift();
+        }, speed != undefined ? speed : 100);
+
+        return false;
+    };
+</script>
+
+<br /><br /><br /><br /><br /><br />
+<div class="text-center">    
+    <h1 id="intro"></h1>
+
+    <script type="text/javascript">
+        writeTextByJS("intro", ["I T o u r    2"]);
+    </script>
+
+</div>
+<br /><br /><br /><br /><br /><br />

@@ -1,0 +1,51 @@
+﻿@model ITour.Models.Order
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Number)</dt><dd>@Html.DisplayFor(model => model.Number)</dd>
+        <dt>@Html.DisplayNameFor(model => model.CreateDate)</dt><dd>@Html.DisplayFor(model => model.CreateDate)</dd>
+        <dt>@Html.DisplayNameFor(model => model.DatePrint)</dt><dd>@Html.DisplayFor(model => model.DatePrint)</dd>
+        <dt>@Html.DisplayNameFor(model => model.OrderStatus)</dt><dd>@Html.DisplayFor(model => model.OrderStatus.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.ReservationNumber)</dt><dd>@Html.DisplayFor(model => model.ReservationNumber)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Manager)</dt><dd>@Html.DisplayFor(model => model.Manager.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.AgencyCompany)</dt><dd>@Html.DisplayFor(model => model.AgencyCompany.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Customer)</dt><dd>@Html.DisplayFor(model => model.Customer.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.TouristsCount)</dt><dd>@Html.DisplayFor(model => model.TouristsCount)</dd>
+        <dt>@Html.DisplayNameFor(model => model.TouristsString)</dt><dd>@Html.DisplayFor(model => model.TouristsString)</dd>
+        <dt>@Html.DisplayNameFor(model => model.DateBegin)</dt><dd>@Html.DisplayFor(model => model.DateBegin)</dd>
+        <dt>@Html.DisplayNameFor(model => model.DateEnd)</dt><dd>@Html.DisplayFor(model => model.DateEnd)</dd>
+        <dt>@Html.DisplayNameFor(model => model.CountDays)</dt><dd>@Html.DisplayFor(model => model.CountDays)</dd>
+        <dt>@Html.DisplayNameFor(model => model.CountNights)</dt><dd>@Html.DisplayFor(model => model.CountNights)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Comment)</dt><dd>@Html.DisplayFor(model => model.Comment)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Touroperators)</dt>
+        <dd>
+            <table class="table table-condensed">
+                @foreach (var item in Model.Touroperators)
+                {
+                    <tr>
+                        <td>   @Html.DisplayFor(modelItem => item.TouroperatorCompany.RegistryNumber) </td>
+                        <td> | @(item.TouroperatorCompany.TouroperatorBrands.Any() ? item.TouroperatorCompany.TouroperatorBrands[0]?.TouroperatorBrand.Name : "")</td>
+                        <td> | @Html.DisplayFor(modelItem => item.TouroperatorCompany.Name) </td>
+                        <td> | @Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeTotalAmount) </td>
+                        <td> | @Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeAmountNewPeriod) </td>
+                        <td> | @Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeExpirationDateNewPeriod) </td>
+                        <td> | @Html.DisplayFor(modelItem => item.TouroperatorCompany.Website) </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Services)</dt>
+        <dd>
+            <table class="table table-condensed">
+                @{var services = Model.Services.OrderBy(s => s.Sequence);}
+                @foreach (var item in services)
+                {
+                    <tr><td> @Html.DisplayFor(modelItem => item.Details)</td></tr>
+                }
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.OrderCostCurrency): @Html.DisplayFor(model => model.OrderCostCurrency)</th>
+                </tr>
+            </table>
+        </dd>
+    </dl>
+</div>

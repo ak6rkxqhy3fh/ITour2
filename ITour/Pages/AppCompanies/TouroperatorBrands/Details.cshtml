@@ -1,0 +1,24 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorBrands.DetailsModel
+
+@{
+    ViewData["Title"] = "Бренд туроператора";
+}
+
+<h3>Бренд туроператора</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TouroperatorBrand.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TouroperatorBrand.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TouroperatorBrand.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>

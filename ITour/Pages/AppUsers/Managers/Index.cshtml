@@ -1,0 +1,61 @@
+﻿@page
+@using ITour.Models
+@inject UserManager<ApplicationUser> _userManager
+@model ITour.Pages.AppUsers.Managers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Manager[0].Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manager[0].Person.ApplicationUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manager[0].AgencyOffice)
+            </th>
+            <th>Роли</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Manager)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.SurnameInitials)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.ApplicationUser.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgencyOffice.Name)
+                </td>
+                <td>
+                    <table>
+                        @{ var userRoles = await _userManager.GetRolesAsync(item.Person.ApplicationUser);}
+                        @foreach (var role in userRoles)
+                        {
+                            <tr><td>@role</td></tr>
+                        }
+                    </table>
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

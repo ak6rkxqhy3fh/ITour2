@@ -1,0 +1,34 @@
+﻿@page
+@model ITour.Pages.Services.CurrencyTypes.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CurrencyType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyType.IsSystem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyType.IsSystem)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="CurrencyType.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

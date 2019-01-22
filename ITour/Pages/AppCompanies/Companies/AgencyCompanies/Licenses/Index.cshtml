@@ -1,0 +1,54 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.AgencyCompanies.Licenses.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.License[0].AgencyCompany)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.License[0].AgencyOffice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.License[0].LicenseNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.License[0].LicenseDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.License) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgencyCompany.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgencyOffice.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicenseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicenseDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

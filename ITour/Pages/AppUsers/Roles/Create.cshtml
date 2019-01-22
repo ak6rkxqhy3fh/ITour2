@@ -1,0 +1,21 @@
+﻿@page
+@model ITour.Pages.AppUsers.Roles.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Создать Роль</h3>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post">
+    <div class="row">
+    <div class="form-group col-md-3">
+        <label for="name">Новая роль</label>
+        <input name="name" class="form-control" />
+        <br /><button type="submit" class="btn btn-primary">Создать</button>
+    </div>
+        
+    </div>
+</form>
+

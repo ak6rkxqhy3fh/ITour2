@@ -1,0 +1,59 @@
+﻿@page
+@model ITour.Pages.Profits.IncomingPayments.DetailsModel
+
+@{
+    ViewData["Title"] = "Входящий платеж";
+}
+
+<h3>Входящий платеж</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.ReceiptNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.ReceiptNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.Order.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentForm.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.PaymentAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.PaymentAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomingPayment.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IncomingPayment.Comment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-incomingPaymentId="@Model.IncomingPayment.Id">Изменить</a> |
+    <a asp-page="../Index">Назад к платежам</a>
+</div>

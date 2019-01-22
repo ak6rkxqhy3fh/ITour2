@@ -1,0 +1,63 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "О программе";
+}
+<h3>@ViewData["Title"]</h3>
+
+<script type="text/javascript">
+    function writeTextByJS(id, text, speed) {
+
+        var ele = document.getElementById(id),
+            txt = text.join("").split("");
+
+        var interval = setInterval(function () {
+
+            if (!txt[0]) {
+
+                return clearInterval(interval);
+            };
+
+            ele.innerHTML += txt.shift();
+        }, speed != undefined ? speed : 50);
+
+        return false;
+    };
+</script>
+
+<h3 id="header"></h3>
+
+<script type="text/javascript">
+    writeTextByJS("header",
+        [
+            "Что такое ITour2?\n"
+        ]
+    );
+</script>
+
+<pre id="text"></pre>
+
+<script type="text/javascript">
+    writeTextByJS("text",
+        [
+            "                                                  \n",
+            "Это онлайн сервис, который решает задачи ведения дел в туристическом агентстве.\n",
+            "\n",
+            "Управление заказами клиентов.\n",
+            "\n",
+            "Удобное формирование набора услуг.\n",
+            "\n",
+            "Учет платежей клиентов и поставщикам услуг.\n",
+            "\n",
+            "Формирование необходимых отчетов.Ближайшие вылеты, рассчет комиссии и т.д.\n",
+            "\n",
+            "Экспорт отчетов в Excel, Word.\n",
+            "\n",
+            "Печать документов(выгрузка в PDF) - Заказ, Договор, Описание турпродукта и т.д.\n",
+            "\n",
+            "Управление клиентской базой и различными справочниками.\n",
+            "\n",
+            "База туроператоров загружается из реестра Ростуризма. \n",
+        ]
+    );
+</script>

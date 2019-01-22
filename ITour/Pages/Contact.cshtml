@@ -1,0 +1,23 @@
+﻿@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Контакты";
+}
+<h3>@ViewData["Title"]</h3>
+<h4>Могильницкий Игорь Анатольевич</h4>
+
+<address>
+    <br />
+    <abbr title="Телефон">P:</abbr>
+    +7 (905) 655-28-10
+</address>
+
+<address>
+    <strong>Техподдержка:</strong> <a href="mailto:support@itour2.ru" title="Почта">support@itour2.ru</a>
+</address>
+
+<div class="row">
+    <div class="col-md-4">
+        <partial name="_DonatePartial" />
+    </div>
+</div>

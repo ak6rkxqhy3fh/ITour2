@@ -1,0 +1,15 @@
+﻿@page
+@model ITour.Pages.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Детали Заказа";
+}
+
+<h3>Заказ</h3>
+
+    <partial name="_OrderDetailsPartial" model="@Model.Order" />
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Order.Id">Изменить</a> |
+    <a asp-page="./Index">Назад к списку</a>
+</div>

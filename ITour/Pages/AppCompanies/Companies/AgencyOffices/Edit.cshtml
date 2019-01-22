@@ -1,0 +1,59 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.AgencyOffices.EditModel
+
+@{
+    ViewData["Title"] = "Изменить офис агентства";
+}
+
+<h3>Изменить офис агентства</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AgencyOffice.Id" />
+            <input type="hidden" asp-for="AgencyOffice.TenantId" />
+            <div class="form-group">
+                <label asp-for="AgencyOffice.Name" class="control-label"></label>
+                <input asp-for="AgencyOffice.Name" class="form-control" />
+                <span asp-validation-for="AgencyOffice.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyOffice.FullName" class="control-label"></label>
+                <input asp-for="AgencyOffice.FullName" class="form-control" />
+                <span asp-validation-for="AgencyOffice.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyOffice.AddressPostal" class="control-label"></label>
+                <input asp-for="AgencyOffice.AddressPostal" class="form-control" />
+                <span asp-validation-for="AgencyOffice.AddressPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyOffice.Phone" class="control-label"></label>
+                <input asp-for="AgencyOffice.Phone" class="form-control maskedinput-phone" />
+                <span asp-validation-for="AgencyOffice.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyOffice.Email" class="control-label"></label>
+                <input asp-for="AgencyOffice.Email" class="form-control" />
+                <span asp-validation-for="AgencyOffice.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyOffice.Comment" class="control-label"></label>
+                <input asp-for="AgencyOffice.Comment" class="form-control" />
+                <span asp-validation-for="AgencyOffice.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

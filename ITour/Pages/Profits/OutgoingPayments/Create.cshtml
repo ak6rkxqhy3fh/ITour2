@@ -1,0 +1,75 @@
+﻿@page
+@model ITour.Pages.Profits.OutgoingPayments.CreateModel
+@{
+    ViewData["Title"] = "Создать исходящий платеж";
+}
+
+<h3>Создать исходящий платеж</h3>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" id="outgoingPaymentForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentDate" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.PaymentDate" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.PaymentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentFormId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PaymentFormId" class="form-control" asp-items="ViewBag.PaymentFormId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentTypeId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PaymentTypeId" class="form-control" asp-items="ViewBag.PaymentTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.InvoiceNumber" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.InvoiceNumber" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.InvoiceNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.InvoiceDate" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.InvoiceDate" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.InvoiceDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OutgoingPayment.PartnerCompanyId" class="control-label"></label>
+                    <select asp-for="OutgoingPayment.PartnerCompanyId" class="form-control" asp-items="ViewBag.PartnerCompanyId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="OutgoingPayment.PaymentAmount" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.PaymentAmount" class="form-control" value="0,00" />
+                    <span asp-validation-for="OutgoingPayment.PaymentAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-8">
+                    <label asp-for="OutgoingPayment.Comment" class="control-label"></label>
+                    <input asp-for="OutgoingPayment.Comment" class="form-control" />
+                    <span asp-validation-for="OutgoingPayment.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-page="../Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,74 @@
+﻿@page
+@model ITour.Pages.Services.TransferServices.CreateInOrderModel
+@{
+    ViewData["Title"] = "Создание услуги";
+}
+<h3>Создать услугу Трансфера к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TransferService.TransferTypeId" class="control-label"></label>
+                    <select asp-for="TransferService.TransferTypeId" class="form-control" asp-items="ViewBag.TransferTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-9">
+                    <label asp-for="TransferService.Comment" class="control-label"></label>
+                    <input asp-for="TransferService.Comment" class="form-control" />
+                    <span asp-validation-for="TransferService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="TransferService.DateBegin" class="control-label">Дата отпр</label>
+                    <input asp-for="TransferService.DateBegin" class="form-control" />
+                    <span asp-validation-for="TransferService.DateBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TransferService.TimeBegin" class="control-label">Время отпр</label>
+                    <input asp-for="TransferService.TimeBegin" class="form-control" />
+                    <span asp-validation-for="TransferService.TimeBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TransferService.DateEnd" class="control-label">Дата прибытия</label>
+                    <input asp-for="TransferService.DateEnd" class="form-control" />
+                    <span asp-validation-for="TransferService.DateEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TransferService.TimeEnd" class="control-label">Время прибытия</label>
+                    <input asp-for="TransferService.TimeEnd" class="form-control" />
+                    <span asp-validation-for="TransferService.TimeEnd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TransferService.Cost" class="control-label"></label>
+                    <input asp-for="TransferService.Cost" class="form-control" value="0,00" />
+                    <span asp-validation-for="TransferService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransferService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="TransferService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TransferService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="TransferService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="TransferService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

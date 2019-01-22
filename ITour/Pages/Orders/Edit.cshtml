@@ -1,0 +1,393 @@
+﻿@page "{handler?}"
+@model ITour.Pages.Orders.EditModel
+
+@{
+    ViewData["Title"] = "Изменение Заказа";
+}
+<div>
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-4">
+            <h3>Изменить Заказ @Model.Order.Number</h3>
+        </div>
+        @if (Model.Order.Number.HasValue)
+        {
+            <div class="col-md-4 text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Печать">
+                        Печать <span class="glyphicon glyphicon-print"> </span> <span class="caret"> </span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header" role="presentation">PDF</li>
+                        @foreach (var print in Model.Prints)
+                        {
+                            <li><a asp-page="/Prints/Print" asp-route-orderId="@Model.Order.Id" asp-route-printId=@print.Id asp-route-contentType="pdf" title="@print.Description" target="_blank">@print.Title</a></li>
+                        }
+                        <li class="divider"></li>
+                        <li class="dropdown-header">HTML</li>
+                        @foreach (var print in Model.Prints)
+                        {
+                            <li><a asp-page="/Prints/Print" asp-route-orderId="@Model.Order.Id" asp-route-printId=@print.Id asp-route-contentType="html" title="@print.Description" target="_blank">@print.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Order.Id" />
+            <input type="hidden" asp-for="Order.TenantId" />
+            <input type="hidden" asp-for="Order.Number" />
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="Order.CreateDate" class="control-label"></label>
+                    <input type="hidden" asp-for="Order.CreateDate" @*asp-format="{0:dd.MM.yyyy HH:mm:ss}" *@ />
+                    <p>@Model.Order.CreateDateString</p>
+                    <span asp-validation-for="Order.CreateDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Order.DatePrint" class="control-label"></label>
+                    <input asp-for="Order.DatePrint" class="form-control" />
+                    <span asp-validation-for="Order.DatePrint" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Order.OrderStatusId" class="control-label"></label>
+                    <select asp-for="Order.OrderStatusId" class="form-control" asp-items="ViewBag.OrderStatusId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Order.ReservationNumber" class="control-label"></label>
+                    <input asp-for="Order.ReservationNumber" class="form-control" />
+                    <span asp-validation-for="Order.ReservationNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Order.AgencyCompanyId" class="control-label"></label>
+                    <select asp-for="Order.AgencyCompanyId" class="form-control" asp-items="ViewBag.AgencyCompanyId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                    <span asp-validation-for="Order.AgencyCompanyId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Order.ManagerId" class="control-label"></label>
+                    <select asp-for="Order.ManagerId" class="form-control" asp-items="ViewBag.ManagerId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group  col-md-4">
+                    <label asp-for="Order.DateBegin" class="control-label"></label>
+                    <input asp-for="Order.DateBegin" class="form-control" />
+                    <span asp-validation-for="Order.DateBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group  col-md-4">
+                    <label asp-for="Order.DateEnd" class="control-label"></label>
+                    <input asp-for="Order.DateEnd" class="form-control" />
+                    <span asp-validation-for="Order.DateEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group  col-md-2">
+                    <label asp-for="Order.CountDays" class="control-label"></label>
+                    <input asp-for="Order.CountDays" class="form-control" />
+                    <span asp-validation-for="Order.CountDays" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Order.CountNights" class="control-label"></label>
+                    <input asp-for="Order.CountNights" class="form-control" />
+                    <span asp-validation-for="Order.CountNights" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Order.Comment" class="control-label"></label>
+                <input asp-for="Order.Comment" class="form-control" />
+                <span asp-validation-for="Order.Comment" class="text-danger"></span>
+            </div>
+
+            <div id="Customers">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-1"><h4>Заказчик</h4></div>
+                            <div class="col-md-11">
+                                <div class="col-md-7">
+                                    <input type="search" asp-for="Order.Customer.Name" class="form-control" placeholder="Введите три буквы">
+                                    <input type="hidden" asp-for="Order.CustomerId">
+                                </div>
+                                @if (Model.Order.Customer == null)
+                                {
+                                    <div class="col-md-5">
+                                        <button asp-page-handler="CreateCustomerPerson" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Физ лицо</button>
+                                        <button asp-page-handler="CreateCustomerCompany" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Юр лицо</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-2">
+                                        <button asp-page-handler="DeleteCustomer" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Удалить</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button asp-page-handler="EditCustomer" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Изменить</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel-body">
+                            <div class="form-group col-md-7 col-md-offset-1">
+                                <label asp-for="Order.TouristsString" class="control-label"></label>
+                                <textarea asp-for="Order.TouristsString" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Order.TouristsString" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="Order.TouristsCount" class="control-label"></label>
+                                <input asp-for="Order.TouristsCount" class="form-control" />
+                                <span asp-validation-for="Order.TouristsCount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Touroperators">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-2"><h4>Туроператоры</h4></div>
+                            <div class="col-md-4">
+                                <button asp-page-handler="ChoiceTouroperators" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    Подобрать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <table class="table table-condensed">
+                                @foreach (var item in Model.Order.Touroperators)
+                                {
+                                    <tr>
+                                        @{
+                                            string expiredTd = item.TouroperatorCompany.IsFinGaranteeDateNewPeriodExpired ? "warning" : "";
+                                            string expiredDiv = item.TouroperatorCompany.IsFinGaranteeDateNewPeriodExpired ? "text-danger" : "";
+                                        }
+                                        <th> @(item.TouroperatorCompany.TouroperatorBrands.Any() ? item.TouroperatorCompany.TouroperatorBrands[0]?.TouroperatorBrand.Name : "")</th>
+                                        <td> @Html.DisplayFor(modelItem => item.TouroperatorCompany.Name)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.TouroperatorCompany.RegistryNumber)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeTotalAmount)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeAmountNewPeriod)</td>
+                                        <td class="@expiredTd">
+                                            <div class="text-center @expiredDiv">@Html.DisplayFor(modelItem => item.TouroperatorCompany.FinGaranteeExpirationDateNewPeriodString)</div>
+                                        </td>
+                                        <td>
+                                            <a asp-page-handler="DeleteTouroperator" asp-route-id="@item.Id" asp-route-orderId="@Model.Order.Id">Удалить</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Services">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h4>Услуги</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="CreateServiceHandler" class="form-control" asp-items="ViewBag.CreateServiceHandler">
+                                    <option value="">--- Выберите ---</option>
+                                </select>
+                                <div class="text-danger">@TempData["ErrorMessage"]</div>
+                            </div>
+                            <div class="col-md-4">
+                                <button asp-page-handler="CreateService" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed">
+                            @{var services = Model.Order.Services.OrderBy(s => s.Sequence);}
+                            @foreach (var item in services)
+                            {
+                                <tr>
+                                    <td> @Html.DisplayFor(modelItem => item.Details)</td>
+                                    <td nowrap>
+                                        <button type="submit" class="btn btn-default" asp-page-handler="EditService" asp-route-editServiceId="@item.Id" asp-route-editServiceDiscriminator=@item.Discriminator>Изменить</button>
+                                        <a asp-page-handler="DeleteService" asp-route-deleteServiceId="@item.Id" asp-route-orderId="@Model.Order.Id">Удалить</a>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Order.OrderCostCurrency): @Html.DisplayFor(model => model.Order.OrderCostCurrency)</th>
+                                <th></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Payments">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Платежи</h4></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    Заказчика
+                                    <button asp-page-handler="CreateIncomingPayment" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        Добавить
+                                    </button>
+                                </th>
+                                <th>
+                                    Партнерам
+                                    <button asp-page-handler="CreateOutgoingPayment" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        Добавить
+                                    </button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <th> @Html.DisplayNameFor(model => model.Order.IncomingPayments[0].PaymentDate)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.IncomingPayments[0].ReceiptNumber)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.IncomingPayments[0].PaymentAmount)</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Order.IncomingPayments)
+                                        {
+
+                                            <tr>
+                                                <td> @Html.DisplayFor(modelItem => item.PaymentDate)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.ReceiptNumber)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.PaymentAmountNumeric)</td>
+                                                <td nowrap>
+                                                    <button type="submit" class="btn btn-default" asp-page-handler="EditIncomingPayment" asp-route-editIncomingPaymentId="@item.Id" title="Изменить">
+                                                        <span class="glyphicon glyphicon-edit"></span>
+                                                    </button>
+                                                    <a class="btn btn-default" asp-page-handler="DeleteIncomingPayment" asp-route-deleteIncomingPaymentId="@item.Id" asp-route-orderId="@Model.Order.Id" title="Удалить">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <th> @Html.DisplayNameFor(model => model.Order.OutgoingPayments[0].PaymentDate)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.OutgoingPayments[0].InvoiceNumber)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.OutgoingPayments[0].InvoiceDate)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.OutgoingPayments[0].PaymentAmount)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Order.OutgoingPayments[0].PaymentOrder)</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Order.OutgoingPayments)
+                                        {
+                                            <tr>
+
+                                                <td> @Html.DisplayFor(modelItem => item.PaymentDate)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.InvoiceNumber)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.InvoiceDate)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.PaymentAmountNumeric)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.PaymentOrder)</td>
+                                                <td nowrap>
+                                                    <button type="submit" class="btn btn-default" asp-page-handler="EditOutgoingPayment" asp-route-editOutgoingPaymentId="@item.Id" title="Изменить">
+                                                        <span class="glyphicon glyphicon-edit"></span>
+                                                    </button>
+                                                    <a class="btn btn-default" asp-page-handler="DeleteOutgoingPayment" asp-route-deleteOutgoingPaymentId="@item.Id" asp-route-orderId="@Model.Order.Id" title="Удалить">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Order.IncomingPaymentsTotalCurrency): @Html.DisplayFor(model => model.Order.IncomingPaymentsTotalCurrency)
+                                    <br />@Html.DisplayNameFor(model => model.Order.CustomerDebtCurrency): @Html.DisplayFor(model => model.Order.CustomerDebtCurrency)
+                                    <br />@Html.DisplayNameFor(model => model.Order.IncomingPaymentsBankCommissionTotalCurrency): @Html.DisplayFor(model => model.Order.IncomingPaymentsBankCommissionTotalCurrency)
+                                </th>
+                                <th>@Html.DisplayNameFor(model => model.Order.OutgoingPaymentsTotalCurrency): @Html.DisplayFor(model => model.Order.OutgoingPaymentsTotalCurrency)</th>
+                            </tr>
+                        </table>
+                        @Html.DisplayNameFor(model => model.Order.OrderCommissionCurrency): @Html.DisplayFor(model => model.Order.OrderCommissionCurrency)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Сохранить и закрыть" class="btn btn-default" asp-route-isClose="true" />
+                <input type="submit" value="Сохранить и остаться" class="btn btn-default" />
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Печать">
+                        Печать <span class="glyphicon glyphicon-print"> </span> <span class="caret"> </span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header" role="presentation">PDF</li>
+                        @foreach (var print in Model.Prints)
+                        {
+                            <li><a asp-page="/Prints/Print" asp-route-orderId="@Model.Order.Id" asp-route-printId=@print.Id asp-route-contentType="pdf" title="@print.Description" target="_blank">@print.Title</a></li>
+                        }
+                        <li class="divider"></li>
+                        <li class="dropdown-header">HTML</li>
+                        @foreach (var print in Model.Prints)
+                        {
+                            <li><a asp-page="/Prints/Print" asp-route-orderId="@Model.Order.Id" asp-route-printId=@print.Id asp-route-contentType="html" title="@print.Description" target="_blank">@print.Title</a></li>
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Назад к списку</a>
+</div>
+
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(function () {
+            $("#Order_Customer_Name").autocomplete({
+                minLength: 3,
+                source: "/Orders/ChoiceCustomer",
+                select: function (event, ui) {
+                    $("#Order_Customer_Name").val(ui.item.label);
+                    $("#Order_CustomerId").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        window.scrollBy(0, -100);
+                        //window.scrollBy(0, -window.screen.availHeight / 2);
+    </script>
+}
+
+

@@ -1,0 +1,103 @@
+﻿@page
+@model ITour.Pages.AppCompanies.Companies.AgencyCompanies.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AgencyCompany</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AgencyCompany.Id" />
+            <input type="hidden" asp-for="AgencyCompany.TenantId" />
+            <div class="form-group">
+                <label asp-for="AgencyCompany.PersonId" class="control-label"></label>
+                <select asp-for="AgencyCompany.PersonId" class="form-control" asp-items="ViewBag.PersonId">
+                    <option value="">- Выберите -</option>
+                </select>
+                <span asp-validation-for="AgencyCompany.PersonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.PersonPost" class="control-label"></label>
+                <input asp-for="AgencyCompany.PersonPost" class="form-control" />
+                <span asp-validation-for="AgencyCompany.PersonPost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.ActionCause" class="control-label"></label>
+                <input asp-for="AgencyCompany.ActionCause" class="form-control" />
+                <span asp-validation-for="AgencyCompany.ActionCause" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Name" class="control-label"></label>
+                <input asp-for="AgencyCompany.Name" class="form-control" />
+                <span asp-validation-for="AgencyCompany.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.FullName" class="control-label"></label>
+                <input asp-for="AgencyCompany.FullName" class="form-control" />
+                <span asp-validation-for="AgencyCompany.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.INN" class="control-label"></label>
+                <input asp-for="AgencyCompany.INN" class="form-control" />
+                <span asp-validation-for="AgencyCompany.INN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.OGRN" class="control-label"></label>
+                <input asp-for="AgencyCompany.OGRN" class="form-control" />
+                <span asp-validation-for="AgencyCompany.OGRN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.AddressLegal" class="control-label"></label>
+                <input asp-for="AgencyCompany.AddressLegal" class="form-control" />
+                <span asp-validation-for="AgencyCompany.AddressLegal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.AddressPostal" class="control-label"></label>
+                <input asp-for="AgencyCompany.AddressPostal" class="form-control" />
+                <span asp-validation-for="AgencyCompany.AddressPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Bank" class="control-label"></label>
+                <input asp-for="AgencyCompany.Bank" class="form-control" />
+                <span asp-validation-for="AgencyCompany.Bank" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Phone" class="control-label"></label>
+                <input asp-for="AgencyCompany.Phone" class="form-control maskedinput-phone" />
+                <span asp-validation-for="AgencyCompany.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Email" class="control-label"></label>
+                <input asp-for="AgencyCompany.Email" class="form-control" />
+                <span asp-validation-for="AgencyCompany.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Website" class="control-label"></label>
+                <input asp-for="AgencyCompany.Website" class="form-control" />
+                <span asp-validation-for="AgencyCompany.Website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencyCompany.Comment" class="control-label"></label>
+                <input asp-for="AgencyCompany.Comment" class="form-control" />
+                <span asp-validation-for="AgencyCompany.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

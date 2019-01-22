@@ -1,0 +1,26 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.Countries.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить страну";
+}
+
+<h3>Удалить страну</h3>
+<h4>Вы уверены, что хотите удалить?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country.Name)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Country.Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="./Index">Назад к списку</a>
+    </form>
+</div>

@@ -1,0 +1,85 @@
+﻿@page
+@model ITour.Pages.Services.ExcursionServices.CreateInOrderModel
+@{
+    ViewData["Title"] = "Создание услуги";
+}
+<h3>Создать Экскурсию к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label asp-for="ExcursionService.Name" class="control-label"></label>
+                    <input asp-for="ExcursionService.Name" class="form-control" />
+                    <span asp-validation-for="ExcursionService.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="ExcursionService.Description" class="control-label"></label>
+                    <input asp-for="ExcursionService.Description" class="form-control" />
+                    <span asp-validation-for="ExcursionService.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="ExcursionService.DateBegin" class="control-label"></label>
+                    <input asp-for="ExcursionService.DateBegin" class="form-control" />
+                    <span asp-validation-for="ExcursionService.DateBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="ExcursionService.TimeBegin" class="control-label"></label>
+                    <input asp-for="ExcursionService.TimeBegin" class="form-control" />
+                    <span asp-validation-for="ExcursionService.TimeBegin" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ExcursionService.DateEnd" class="control-label"></label>
+                    <input asp-for="ExcursionService.DateEnd" class="form-control" />
+                    <span asp-validation-for="ExcursionService.DateEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="ExcursionService.TimeEnd" class="control-label"></label>
+                    <input asp-for="ExcursionService.TimeEnd" class="form-control" />
+                    <span asp-validation-for="ExcursionService.TimeEnd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="form-group">
+                    <label asp-for="ExcursionService.Comment" class="control-label"></label>
+                    <input asp-for="ExcursionService.Comment" class="form-control" />
+                    <span asp-validation-for="ExcursionService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="ExcursionService.Cost" class="control-label"></label>
+                    <input asp-for="ExcursionService.Cost" class="form-control" value="0,00" />
+                    <span asp-validation-for="ExcursionService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="ExcursionService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="ExcursionService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="ExcursionService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="ExcursionService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="ExcursionService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Services" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

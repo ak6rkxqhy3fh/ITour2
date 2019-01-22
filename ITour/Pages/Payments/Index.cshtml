@@ -1,0 +1,310 @@
+﻿@page
+@model ITour.Pages.Payments.IndexModel
+
+@{
+    ViewData["Title"] = "Платежи";
+}
+
+<h3>
+    Платежи
+    <small>
+        <a data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <i class="glyphicon glyphicon-filter"></i> Фильтр
+        </a>
+    </small>
+</h3>
+@{
+    string inStr = Model.PaymentFilter.NotAllParamsIsNull ? "in" : "";
+}
+<div class="collapse @inStr" id="collapseFilter">
+    <div class="card card-body">
+        <form asp-page="./Index" method="get" id="filterForm">
+            <input type="hidden" name="PaymentSort.SortState" value="@Model.PaymentSort.SortState" />
+            <div class="form-actions ">
+                <div class="row">
+                    <div class="form-group col col-md-1">
+                        <label>№</label>
+                        <input asp-for="PaymentFilter.Number" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Период</label>
+                        <div><input asp-for="PaymentFilter.PeriodFrom" class="form-control col-md-3" /></div>
+                        <div><input asp-for="PaymentFilter.PeriodTo" class="form-control col-md-3" /></div>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Агентство</label>
+                        <select asp-for="PaymentFilter.AgencyCompanyId" class="form-control col-md-3" asp-items="@ViewBag.FilterAgencyCompanyId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Менеджер</label>
+                        <select asp-for="PaymentFilter.ManagerId" class="form-control col-md-3" asp-items="@ViewBag.FilterManagerId">
+                            <option value="">--- Все ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-md-2">
+                        <label>Заказчик</label>
+                        <input asp-for="PaymentFilter.CustomerName" class="form-control col-md-3" />
+                    </div>
+                    <div class="form-group col col-md-3 align-self-center">
+                        <br />
+                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Искать</button> |
+                        <a asp-page="./Index">Сбросить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+    Dictionary<string, string> AllRouteData = new Dictionary<string, string>()
+{
+{"PaymentFilter.OrderNumber", Model.PaymentFilter.Number.ToString() },
+{"PaymentFilter.PeriodFrom", Model.PaymentFilter.PeriodFrom.HasValue ? ((DateTime)Model.PaymentFilter.PeriodFrom).ToString("yyyy-MM-dd") : ""},
+{"PaymentFilter.PeriodTo", Model.PaymentFilter.PeriodTo.HasValue ? ((DateTime)Model.PaymentFilter.PeriodTo).ToString("yyyy-MM-dd") : ""},
+{"PaymentFilter.AgencyCompanyId", Model.PaymentFilter.AgencyCompanyId.ToString() },
+{"PaymentFilter.ManagerId", Model.PaymentFilter.ManagerId.ToString() },
+{"PaymentFilter.CustomerName", Model.PaymentFilter.CustomerName },
+{"PaymentSort.SortState", Model.PaymentSort.SortState.ToString() },
+{"PaymentPaginate.PageSize", Model.PaymentPaginate.PageSize.ToString() }
+};
+    string glyphicon_triangle = "";
+}
+
+<table class="table table-condensed table-responsive table-hover table-striped">
+    <thead>
+        <tr>
+            <th nowrap>
+                @{Dictionary<string, string> OrderNumberAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentSort.SortOrder", Model.PaymentSort.OrderNumberSort.ToString() } }; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.OrderNumberAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.OrderNumberDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@OrderNumberAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Order[0].Number)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> OrderDatePrintAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentSort.SortOrder", @Model.PaymentSort.OrderPrintDateSort.ToString() } }; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.OrderPrintDateAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.OrderPrintDateDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@OrderDatePrintAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Order[0].DatePrint)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> AgencyCompanyNameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentSort.SortOrder", Model.PaymentSort.AgencyCompanyNameSort.ToString() } }; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.AgencyCompanyNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.AgencyCompanyNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@AgencyCompanyNameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Order[0].AgencyCompany)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> ManagerNameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentSort.SortOrder", @Model.PaymentSort.ManagerNameSort.ToString() } }; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.ManagerNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.ManagerNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@ManagerNameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Order[0].Manager)
+                </a>
+            </th>
+            <th nowrap>
+                @{Dictionary<string, string> CustomerNameAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentSort.SortOrder", @Model.PaymentSort.CustomerNameSort.ToString() } }; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.CustomerNameAsc) { glyphicon_triangle = "glyphicon-triangle-top"; }
+                @if (Model.PaymentSort.SortState == PaymentSortState.CustomerNameDesc) { glyphicon_triangle = "glyphicon-triangle-bottom"; }
+                <a asp-page="./Index" asp-all-route-data="@CustomerNameAllRouteData" class="sort-link">
+                    <span class="glyphicon @glyphicon_triangle"></span> @{glyphicon_triangle = ""; }
+                    @Html.DisplayNameFor(model => model.Order[0].Customer)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Touroperators)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].OrderCostNumeric)
+                <br />(@Html.DisplayNameFor(model => model.Order[0].OrderCommissionNumeric))
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].IncomingPaymentsTotalNumeric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].OutgoingPaymentsTotalNumeric)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatePrint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgencyCompany.Name)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Manager.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                    @*<table>
+                            <tr><td>@Html.DisplayFor(modelItem => item.Customer.CustomerCompany.Name)</td></tr>
+                            <tr><td>@Html.DisplayFor(modelItem => item.Customer.Person.SurnameInitials)</td></tr>
+                        </table>*@
+                </td>
+                <td>
+                    <table>
+                        @foreach (var touroperator in item.Touroperators)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(touroperatorItem => touroperator.TouroperatorCompany.Name)</td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.OrderCostNumeric)<br />
+                    (@Html.DisplayFor(modelItem => item.OrderCommissionNumeric))
+                </td>
+                <td>
+                    <u>@Html.DisplayFor(modelItem => item.IncomingPaymentsTotalNumeric)</u>
+                    <a asp-page="./IncomingPayments/Create" asp-route-orderId="@item.Id">
+                        <span class="glyphicon glyphicon-plus-sign" title="Добавить входящий платеж"></span>
+                    </a>
+                    <table>
+                        @foreach (var incomingPaymenItem in item.IncomingPayments)
+                        {
+                            <tr>
+                                <td nowrap>
+                                    <a asp-page="./IncomingPayments/Details" asp-route-incomingPaymentId="@incomingPaymenItem.Id" title="Детали платежа">
+                                        <small>@Html.DisplayFor(modelIncomingPaymenItem => incomingPaymenItem.PaymentAmountNumeric) </small>
+                                    </a>
+                                </td>
+                                <td nowrap>
+                                    <small>&nbsp;(@Html.DisplayFor(modelIncomingPaymenItem => incomingPaymenItem.PaymentDate)) </small>
+                                </td>
+                                <td nowrap>
+                                    <a asp-page="./IncomingPayments/Edit" asp-route-incomingPaymentId="@incomingPaymenItem.Id">
+                                        &nbsp;<span class="glyphicon glyphicon-edit" title="Изменить входящий платеж"></span>
+                                    </a>
+                                </td>
+                                <td nowrap>
+                                    <a asp-page="./IncomingPayments/Delete" asp-route-incomingPaymentId="@incomingPaymenItem.Id">
+                                        &nbsp;<span class="glyphicon glyphicon-minus-sign" title="Удалить входящий платеж"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <small>
+                        (Долг заказчика: @Html.DisplayFor(modelItem => item.CustomerDebtNumeric))<br />
+                        (Комиссия банка: @Html.DisplayFor(modelItem => item.IncomingPaymentsBankCommissionTotalNumeric))
+                    </small>
+                </td>
+                <td>
+                    <u>
+                        @Html.DisplayFor(modelItem => item.OutgoingPaymentsTotalNumeric)
+                        <a asp-page="./OutgoingPayments/Create" asp-route-orderId="@item.Id">
+                            <span class="glyphicon glyphicon-plus-sign" title="Добавить исходящий платеж"></span>
+                        </a>
+                    </u>
+                    <table>
+                        @foreach (var outgoingPaymenItem in item.OutgoingPayments)
+                        {
+                            <tr>
+                                <td nowrap>
+                                    <a asp-page="./OutgoingPayments/Details" asp-route-outgoingPaymentId="@outgoingPaymenItem.Id" title="Детали платежа">
+                                        <small>@Html.DisplayFor(modelOutgoingPaymenItem => outgoingPaymenItem.PaymentAmountNumeric)</small>
+                                    </a>
+                                </td>
+                                <td nowrap>
+                                    <small>&nbsp;(@Html.DisplayFor(modelOutgoingPaymenItem => outgoingPaymenItem.PaymentOrder))</small>
+                                </td>
+                                <td nowrap>
+                                    <small>&nbsp;(@Html.DisplayFor(modelOutgoingPaymenItem => outgoingPaymenItem.PaymentDate))</small>
+                                </td>
+                                <td nowrap>
+                                    <small>&nbsp;(@Html.DisplayFor(modelOutgoingPaymenItem => outgoingPaymenItem.PartnerCompany.Name))</small>
+                                </td>
+                                <td nowrap>
+                                    <a asp-page="./OutgoingPayments/Edit" asp-route-outgoingPaymentId="@outgoingPaymenItem.Id">
+                                        &nbsp;<span class="glyphicon glyphicon-edit" title="Изменить исходящий платеж"></span>
+                                    </a>
+                                </td>
+                                <td nowrap>
+                                    <a asp-page="./OutgoingPayments/Delete" asp-route-outgoingPaymentId="@outgoingPaymenItem.Id">
+                                        &nbsp;<span class="glyphicon glyphicon-minus-sign" title="Удалить исходящий платеж"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th>ИТОГИ: </th>
+            <th>
+                @Model.PaymentTotals.TotalOrdersCostNumeric<br />
+                (@Model.PaymentTotals.TotalOrdersComissionNumeric)
+            </th>
+            <th>
+                @Model.PaymentTotals.TotalIncomingPaymentsNumeric<br />
+                (@Model.PaymentTotals.TotalCustomerDebtNumeric)
+            </th>
+            <th>@Model.PaymentTotals.TotalOutgoingPaymentsNumeric</th>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+@{
+    string prevDisabled = !Model.PaymentPaginate.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !Model.PaymentPaginate.HasNextPage ? "disabled" : "";
+}
+
+<div class="row">
+    <table class="col-md-8">
+        <tr>
+            <td align="center">
+                <ul class="pagination">
+                    <li class="page-item @prevDisabled" title="Первая">
+                        @{Dictionary<string, string> FirstAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentPaginate.PageNumber", (1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="FirstAllRouteData"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    </li>
+                    <li class="page-item @prevDisabled" title="Предыдущая">
+                        @{Dictionary<string, string> PrevAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentPaginate.PageNumber", (Model.PaymentPaginate.PageNumber - 1).ToString() } };}
+                        <a asp-page="./Index" asp-all-route-data="PrevAllRouteData"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Следующая">
+                        @{Dictionary<string, string> NextAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentPaginate.PageNumber", (Model.PaymentPaginate.PageNumber + 1).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="NextAllRouteData"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </li>
+                    <li class="page-item @nextDisabled" title="Последняя">
+                        @{Dictionary<string, string> LastAllRouteData = new Dictionary<string, string>(AllRouteData) { { "PaymentPaginate.PageNumber", (Model.PaymentPaginate.TotalPages).ToString() } }; }
+                        <a asp-page="./Index" asp-all-route-data="LastAllRouteData"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    </li>
+                </ul>
+            </td>
+            <td align="center">
+                Страница @Model.PaymentPaginate.PageNumber из @Model.PaymentPaginate.TotalPages
+            </td>
+            <td align="center">По&nbsp;</td>
+            <td align="center"><select class="form-control" asp-for="@Model.PaymentPaginate.PageSize" form="filterForm" asp-items="@ViewBag.PageSize" onchange="this.form.submit();"></select></td>
+            <td align="center">&nbsp;строк</td>
+            <td align="center">Всего @Model.PaymentPaginate.Count записей</td>
+        </tr>
+    </table>
+</div>

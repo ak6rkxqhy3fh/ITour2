@@ -1,0 +1,81 @@
+﻿@page
+@model ITour.Pages.Payments.OutgoingPayments.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить исходящий платеж";
+}
+
+<h3>Удалить исходящий платеж</h3>
+<h4>Вы уверены, что хотите удалить?</h4>
+<div>
+    <h4>OutgoingPayment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.InvoiceNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.InvoiceNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.InvoiceDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.InvoiceDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PartnerCompany)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PartnerCompany.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.Order.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentForm.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.PaymentOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.PaymentOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OutgoingPayment.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutgoingPayment.Comment)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="OutgoingPayment.Id" value="@Model.OutgoingPayment.Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="../Index">Назад к Платежам</a>
+    </form>
+</div>

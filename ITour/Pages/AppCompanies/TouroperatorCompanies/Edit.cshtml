@@ -1,0 +1,133 @@
+﻿@page
+@model ITour.Pages.AppCompanies.TouroperatorCompanies.EditModel
+
+@{
+    ViewData["Title"] = "Изменить Юр. лицо туроператора";
+}
+
+<h3>Изменить Юр. лицо туроператора</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TouroperatorCompany.Id" />
+            <input type="hidden" asp-for="TouroperatorCompany.TenantId" />
+            <input type="hidden" asp-for="TouroperatorCompany.JsonData" />
+            <input type="hidden" asp-for="TouroperatorCompany.IsOpenData" />
+            <input type="hidden" asp-for="TouroperatorCompany.IsValid" />
+
+            <input type="hidden" name="touroperatorBrandCompanyId" value="@ViewBag.TouroperatorBrandCompanyId" />
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="control-label">Туроператор</label> 
+                    <select  name="touroperatorBrandId" class="form-control" asp-items="ViewBag.TouroperatorBrandId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="TouroperatorCompany.Name" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Name" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-9">
+                    <label asp-for="TouroperatorCompany.FullName" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.FullName" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.FullName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="TouroperatorCompany.INN" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.INN" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.INN" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TouroperatorCompany.OGRN" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.OGRN" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.OGRN" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TouroperatorCompany.Phone" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Phone" class="form-control maskedinput-phone" />
+                    <span asp-validation-for="TouroperatorCompany.Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TouroperatorCompany.Email" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Email" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TouroperatorCompany.Website" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Website" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.Website" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label asp-for="TouroperatorCompany.AddressLegal" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.AddressLegal" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.AddressLegal" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="TouroperatorCompany.AddressPostal" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.AddressPostal" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.AddressPostal" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="TouroperatorCompany.Bank" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Bank" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.Bank" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="TouroperatorCompany.Comment" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.Comment" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="TouroperatorCompany.RegistryNumber" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.RegistryNumber" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.RegistryNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TouroperatorCompany.FinGaranteeTotalAmount" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.FinGaranteeTotalAmount" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.FinGaranteeTotalAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TouroperatorCompany.FinGaranteeAmountNewPeriod" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.FinGaranteeAmountNewPeriod" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.FinGaranteeAmountNewPeriod" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TouroperatorCompany.FinGaranteeExpirationDateNewPeriod" class="control-label"></label>
+                    <input asp-for="TouroperatorCompany.FinGaranteeExpirationDateNewPeriod" class="form-control" />
+                    <span asp-validation-for="TouroperatorCompany.FinGaranteeExpirationDateNewPeriod" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

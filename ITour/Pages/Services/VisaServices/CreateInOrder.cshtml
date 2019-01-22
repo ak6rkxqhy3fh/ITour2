@@ -1,0 +1,52 @@
+﻿@page
+@model ITour.Pages.Services.VisaServices.CreateInOrderModel
+@{
+    ViewData["Title"] = "Создание услуги";
+}
+<h3>Создать услугу Визовой поддержки к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="VisaService.VisaTypeId" class="control-label">Вариант</label>
+                    <select asp-for="VisaService.VisaTypeId" class="form-control" asp-items="ViewBag.VisaTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="VisaService.Comment" class="control-label"></label>
+                    <input asp-for="VisaService.Comment" class="form-control" />
+                    <span asp-validation-for="VisaService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="VisaService.Cost" class="control-label"></label>
+                    <input asp-for="VisaService.Cost" class="form-control" value="0,00" />
+                    <span asp-validation-for="VisaService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="VisaService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="VisaService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">Выберите</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="VisaService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="VisaService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="VisaService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

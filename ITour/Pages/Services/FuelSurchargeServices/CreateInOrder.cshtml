@@ -1,0 +1,58 @@
+﻿@page
+@model ITour.Pages.Services.FuelSurchargeServices.CreateInOrderModel
+@{
+    ViewData["Title"] = "Создание услуги";
+}
+<h3>Создать Топливный сбор к Заказу</h3>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <div class="checkbox">
+                        <label>
+                            <br /><input asp-for="FuelSurchargeService.IsFuelSurcharge" /> <b>@Html.DisplayNameFor(model => model.FuelSurchargeService.IsFuelSurcharge)</b>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-7">
+                    <label asp-for="FuelSurchargeService.Comment" class="control-label"></label>
+                    <input asp-for="FuelSurchargeService.Comment" class="form-control" />
+                    <span asp-validation-for="FuelSurchargeService.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="FuelSurchargeService.Cost" class="control-label"></label>
+                    <input asp-for="FuelSurchargeService.Cost" class="form-control" value="0,00" />
+                    <span asp-validation-for="FuelSurchargeService.Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="FuelSurchargeService.CurrencyTypeId" class="control-label"></label>
+                    <select asp-for="FuelSurchargeService.CurrencyTypeId" class="form-control" asp-items="ViewBag.CurrencyTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="FuelSurchargeService.ExchangeRate" class="control-label"></label>
+                    <input asp-for="FuelSurchargeService.ExchangeRate" class="form-control" />
+                    <span asp-validation-for="FuelSurchargeService.ExchangeRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Services" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

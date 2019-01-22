@@ -1,0 +1,73 @@
+﻿@page
+@model ITour.Pages.Payments.IncomingPayments.CreateInOrderModel
+
+@{
+    ViewData["Title"] = "Создать входящий платеж";
+}
+
+<h3>Создать входящий платеж</h3>
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="IncomingPayment.PaymentDate" class="control-label"></label>
+                    <input asp-for="IncomingPayment.PaymentDate" class="form-control" />
+                    <span asp-validation-for="IncomingPayment.PaymentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IncomingPayment.ReceiptNumber" class="control-label"></label>
+                    <input asp-for="IncomingPayment.ReceiptNumber" class="form-control" />
+                    <span asp-validation-for="IncomingPayment.ReceiptNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="IncomingPayment.PaymentFormId" class="control-label"></label>
+                    <select asp-for="IncomingPayment.PaymentFormId" class="form-control" asp-items="ViewBag.PaymentFormId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IncomingPayment.BankCommission" class="control-label"></label>
+                    <input asp-for="IncomingPayment.BankCommission" class="form-control" value="0,00" />
+                    <span asp-validation-for="IncomingPayment.BankCommission" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="IncomingPayment.PaymentTypeId" class="control-label"></label>
+                    <select asp-for="IncomingPayment.PaymentTypeId" class="form-control" asp-items="ViewBag.PaymentTypeId">
+                        <option value="">--- Выберите ---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="IncomingPayment.PaymentAmount" class="control-label"></label>
+                    <input asp-for="IncomingPayment.PaymentAmount" class="form-control" value="0,00" />
+                    <span asp-validation-for="IncomingPayment.PaymentAmount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-8">
+                    <label asp-for="IncomingPayment.Comment" class="control-label"></label>
+                    <input asp-for="IncomingPayment.Comment" class="form-control" />
+                    <span asp-validation-for="IncomingPayment.Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" /> |
+                @{
+                    string returnPage = (string)TempData.Peek("ReturnPage");
+                    string orderId = ((Guid)TempData.Peek("OrderId")).ToString();
+                }
+                <a asp-page="@returnPage" asp-fragment="Payments" asp-route-id="@orderId">Назад к заказу</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

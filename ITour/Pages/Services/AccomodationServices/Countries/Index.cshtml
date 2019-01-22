@@ -1,0 +1,38 @@
+﻿@page
+@model ITour.Pages.Services.AccomodationServices.Countries.IndexModel
+
+@{
+    ViewData["Title"] = "Страны";
+}
+
+<h3>
+    Страны
+    <small>
+        <a class="btn btn-default" asp-page="Create"><span class="glyphicon glyphicon-plus"></span> Создать</a>
+    </small>
+</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Country[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Country) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

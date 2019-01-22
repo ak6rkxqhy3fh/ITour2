@@ -1,0 +1,170 @@
+﻿@page
+@model ITour.Pages.AppUsers.Customers.DeleteModel
+
+@{
+    ViewData["Title"] = "Удалить Заказчика";
+}
+
+<h3>Удалить Заказчика</h3>
+<h4>Вы действительно хотите удалить?</h4>
+<div>
+    <hr />
+    <div class="row">
+        <dl class="dl-horizontal col-md-10">
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Manager)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Manager.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person):
+            </dt>
+            <dd>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.FullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person.BirthDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.BirthDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.Address)
+            </dd>
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Customer.ApplicationUser.PhoneNumber)*@
+                Телефон
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.ApplicationUser.PhoneNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person.ApplicationUser.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.ApplicationUser.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Person.Comment)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Person.Comment)
+            </dd>
+            <dt>
+                Документы
+            </dt>
+            <dd>
+                <table class="table table-condensed">
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.DocumentType.Name)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.Series)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.Number)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.IssuedBy)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.IssuedDate)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.IdDocument.ExpirationDate)</td>
+                    </tr>
+                    <tr>
+                        <td>Загранпаспорт</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.Passport.Series)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.Passport.Number)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.Passport.IssuedBy)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.Passport.IssuedDate)</td>
+                        <td>@Html.DisplayFor(model => model.Customer.Person.Passport.ExpirationDate)</td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+    </div>
+    @if (Model.Customer.CustomerCompany != null)
+    {
+        <div class="row">
+            <dl class="dl-horizontal col-md-8">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany):
+                </dt>
+                <dd>
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.FullName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.FullName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.INN)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.INN)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.OGRN)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.OGRN)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.AddressLegal)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.AddressLegal)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.AddressPostal)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.AddressPostal)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Bank)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Bank)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Phone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Phone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Website)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Website)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerCompany.Comment)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.CustomerCompany.Comment)
+                </dd>
+            </dl>
+        </div>
+    }
+    <form method="post">
+        <input type="hidden" asp-for="Customer.Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="./Index">Назад к списку</a>
+    </form>
+</div>

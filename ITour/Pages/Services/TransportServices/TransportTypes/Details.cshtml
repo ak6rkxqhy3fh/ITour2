@@ -1,0 +1,31 @@
+﻿@page
+@model ITour.Pages.Services.TransportServices.TransportTypes.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TransportType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransportType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TransportType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TransportType.IsSystem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TransportType.IsSystem)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TransportType.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
